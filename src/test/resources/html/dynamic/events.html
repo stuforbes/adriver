@@ -1,0 +1,51 @@
+<html>
+<head>
+<style type="text/css">
+	#event-panel {
+		height:300px;
+		width:300px;
+		border: 1px solid black;
+	}
+</style>
+	
+<script type="text/javascript">
+	function startTimer(){
+		setTimeout(function(){
+			document.getElementById('top').style.display='block';
+		}, 1000);
+	}
+	
+	function handleDoubleClick(){
+		setTimeout(function(){
+			document.getElementById('event-panel').innerHTML='Double click event has occurred';
+			return false;
+		}, 1000);
+	}
+	
+	function handleClick(){
+		setTimeout(function(){
+			document.getElementById('event-panel').innerHTML='Left click event has occurred';
+			return false;
+		}, 1000);
+	}
+	
+	function handleRightClick(){
+		setTimeout(function(){
+			document.getElementById('event-panel').innerHTML='Right click event has occurred';
+			return false;
+		}, 1000);
+	}
+	
+	function handleMouseOver(){
+		setTimeout(function(){
+			document.getElementById('event-panel').innerHTML='Mouse over event has occurred';
+			return false;
+		}, 1000);
+	}
+</script>
+</head>
+<body onload="startTimer()">
+<div id="event-panel" onclick="handleClick()" onDblClick="handleDoubleClick()" oncontextmenu="handleRightClick()" onmouseover="handleMouseOver()">
+</div>
+</body>
+</html>

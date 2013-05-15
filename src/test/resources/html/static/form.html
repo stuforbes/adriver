@@ -1,0 +1,34 @@
+<html>
+<body>
+<script type="text/javascript">
+	function doCheckboxClick(){
+		document.getElementById('content').innerHTML = "Checkbox has been clicked";
+	}
+	
+	function doRadioClick(value){
+		setTimeout(function(){
+			document.getElementById('content').innerHTML = value + " has been clicked";
+		}, 1000);
+	}
+	
+	function doTextFieldChange(){
+		document.getElementById('content').innerHTML = document.getElementById('tb').value;
+	}
+</script>
+<div id="top">
+	<div id="content"></div>
+	<input type="checkbox" id="cb" onclick="doCheckboxClick()" />
+	<input type="textbox" id="tb" onkeyup="doTextFieldChange()"/>
+	
+	<input type="radio" id="r1" value="Radio 1" onclick="doRadioClick(this.value)"/>
+	<input type="radio" id="r2" value="Radio 2" onclick="doRadioClick(this.value)"/>
+	
+	<form method="GET">
+		<input type="text" name="some-text"/>
+		<input type="submit" name="submit-button" value="Submit"/>
+	</form>
+	
+</div>
+</div>
+</body>
+</html>

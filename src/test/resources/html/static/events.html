@@ -1,0 +1,37 @@
+<html>
+<head>
+<style type="text/css">
+	#event-panel {
+		height:300px;
+		width:300px;
+		border: 1px solid black;
+	}
+</style>
+	
+<script type="text/javascript">
+	function handleDoubleClick(){
+		document.getElementById('event-panel').innerHTML='Double click event has occurred';
+		return false;
+	}
+	
+	function handleClick(){
+		document.getElementById('event-panel').innerHTML='Left click event has occurred';
+		return false;
+	}
+	
+	function handleRightClick(){
+		document.getElementById('event-panel').innerHTML='Right click event has occurred';
+		return false;
+	}
+	
+	function handleMouseOver(){
+		document.getElementById('event-panel').innerHTML='Mouse over event has occurred';
+		return false;
+	}
+</script>
+</head>
+<body>
+<div id="event-panel" onclick="handleClick()" onDblClick="handleDoubleClick()" oncontextmenu="handleRightClick()" onmouseover="handleMouseOver()">
+</div>
+</body>
+</html>

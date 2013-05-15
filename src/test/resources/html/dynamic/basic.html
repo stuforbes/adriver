@@ -1,0 +1,27 @@
+<html>
+<head>
+<script type="text/javascript">
+	function startTimer(){
+	console.log('starting timer');
+		setTimeout(function(){
+		console.log('timeout');
+			document.getElementById('top').style.display='block';
+		}, 1000);
+	}
+</script>
+</head>
+<body onload="startTimer()">
+<div id="top" style="display:none">
+	<div id="first">
+		<p>This is the first paragraph</p>
+	</div>
+	<div id="second">
+		<p>This is the second paragraph</p>
+	</div>
+	<div id="third">
+		<p class="p-class">This is the third paragraph</p>
+	</div>
+</div>
+</div>
+</body>
+</html>
