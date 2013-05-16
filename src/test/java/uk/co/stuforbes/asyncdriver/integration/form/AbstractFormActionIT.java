@@ -3,9 +3,7 @@ package uk.co.stuforbes.asyncdriver.integration.form;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyString;
-import static org.junit.Assert.fail;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -77,9 +75,15 @@ public abstract class AbstractFormActionIT extends AbstractDriverIT {
 
 
     @Test
-    @Ignore
     public void canChooseOptionsInASelectBox() {
-        fail();
+        final Element top = driver.child(By.id("top"));
+        top.child(By.id("content")).assertThat().hasText(isEmptyString());
+
+        top.child(By.id("sel")).actions().select("Option 1");
+        top.child(By.id("content")).assertThat().hasText(is("Select box changed to option-1"));
+
+        top.child(By.id("sel")).actions().select("Option 2");
+        top.child(By.id("content")).assertThat().hasText(is("Select box changed to option-2"));
     }
 
 

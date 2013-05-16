@@ -26,6 +26,12 @@
 			document.getElementById('content').innerHTML = document.getElementById('tb').value;
 		}, 1000);
 	}
+	
+	function doSelectChange(newValue){
+		setTimeout(function(){
+			document.getElementById('content').innerHTML = 'Select box changed to '+newValue;
+		}, 1000);
+	}
 </script>
 </head>
 <body onload="startTimer()">
@@ -34,8 +40,14 @@
 	<input type="checkbox" id="cb" onclick="doCheckboxClick()" />
 	<input type="textbox" id="tb" onkeyup="doTextFieldChange()"/>
 	
-	<input type="radio" id="r1" value="Radio 1" onclick="doRadioClick(this.value)"/>
-	<input type="radio" id="r2" value="Radio 2" onclick="doRadioClick(this.value)"/>
+	<input type="radio" name="rdo" id="r1" value="Radio 1" onclick="doRadioClick(this.value)"/>
+	<input type="radio" name="rdo" id="r2" value="Radio 2" onclick="doRadioClick(this.value)"/>
+	
+	<select id="sel" onchange="doSelectChange(this.value)">
+		<option value="">Not Selected</option>
+		<option value="option-1">Option 1</option>
+		<option value="option-2">Option 2</option>
+	</select>
 	
 	<form method="GET">
 		<input type="text" name="some-text"/>

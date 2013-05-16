@@ -28,6 +28,9 @@ public interface ElementActions {
     void moveMouseOver();
 
 
+    void select(String optionText);
+
+
     void perform(ElementAction action);
 
 }

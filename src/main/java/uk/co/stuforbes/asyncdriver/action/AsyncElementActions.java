@@ -10,6 +10,7 @@ import uk.co.stuforbes.asyncdriver.action.actions.ClearTextAction;
 import uk.co.stuforbes.asyncdriver.action.actions.ClickAction;
 import uk.co.stuforbes.asyncdriver.action.actions.DoubleClickAction;
 import uk.co.stuforbes.asyncdriver.action.actions.RightClickAction;
+import uk.co.stuforbes.asyncdriver.action.actions.SelectOptionAction;
 import uk.co.stuforbes.asyncdriver.action.actions.SubmitAction;
 import uk.co.stuforbes.asyncdriver.action.actions.TypeKeyAction;
 import uk.co.stuforbes.asyncdriver.action.actions.TypeTextAction;
@@ -71,6 +72,12 @@ public class AsyncElementActions implements ElementActions {
     public void clear() {
         LOG.debug("About to clear text on {}", elementLocator);
         perform(new ClearTextAction());
+    }
+
+
+    public void select(final String optionText) {
+        LOG.debug("About to select {} in element {}", optionText, elementLocator);
+        perform(new SelectOptionAction(optionText));
     }
 
 
