@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.co.stuforbes.adriver</groupId>
 	<artifactId>a-driver</artifactId>
-	<version>0.1</version>
+	<version>0.1.1-SNAPSHOT</version>
 
 	<packaging>jar</packaging>
 	<name>A-Driver</name>
@@ -48,7 +48,7 @@
 		<connection>scm:git:git@github.com:stuforbes/adriver.git</connection>
 		<url>scm:git:git@github.com:stuforbes/adriver.git</url>
 		<developerConnection>scm:git:git@github.com:stuforbes/adriver.git</developerConnection>
-	  <tag>a-driver-0.1</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<dependencies>
