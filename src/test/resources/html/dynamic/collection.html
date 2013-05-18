@@ -1,0 +1,34 @@
+<html>
+<head>
+<script type="text/javascript">
+	function startTimer(){
+		setTimeout(function(){
+			document.getElementById('top').style.display='block';
+		}, 1000);
+	}
+	
+	function doCheckboxClick(text){
+		setTimeout(function(){
+			document.getElementById('content').innerHTML += text+'<br/>';
+		}, 1000);
+	}
+</script>
+</head>
+<body onload="startTimer()">
+<div id="top" style="display:none">
+	<div id="content"></div>
+	<ul>
+		<li>
+			<input type="checkbox" id="cb1" onclick="doCheckboxClick('Checkbox 1 has been clicked')" />
+		</li>
+		<li>
+			<input type="checkbox" id="cb2" onclick="doCheckboxClick('Checkbox 2 has been clicked')" />
+		</li>
+		<li>
+			<input type="checkbox" id="cb3" onclick="doCheckboxClick('Checkbox 3 has been clicked')" />
+		</li>
+	</ul>
+</div>
+</div>
+</body>
+</html>

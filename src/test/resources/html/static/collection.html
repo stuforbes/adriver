@@ -1,0 +1,26 @@
+<html>
+<head>
+<script type="text/javascript">
+	function doCheckboxClick(text){
+		document.getElementById('content').innerHTML += text+'<br/>';
+	}
+</script>
+</head>
+<body>
+<div id="top">
+	<div id="content"></div>
+	<ul>
+		<li>
+			<input type="checkbox" id="cb1" onclick="doCheckboxClick('Checkbox 1 has been clicked')" />
+		</li>
+		<li>
+			<input type="checkbox" id="cb2" onclick="doCheckboxClick('Checkbox 2 has been clicked')" />
+		</li>
+		<li>
+			<input type="checkbox" id="cb3" onclick="doCheckboxClick('Checkbox 3 has been clicked')" />
+		</li>
+	</ul>
+</div>
+</div>
+</body>
+</html>
