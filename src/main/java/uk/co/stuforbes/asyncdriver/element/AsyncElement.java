@@ -1,5 +1,7 @@
 package uk.co.stuforbes.asyncdriver.element;
 
+import java.util.List;
+
 import org.hamcrest.Description;
 import org.hamcrest.SelfDescribing;
 import org.openqa.selenium.By;
@@ -11,7 +13,11 @@ import uk.co.stuforbes.asyncdriver.action.ElementActions;
 import uk.co.stuforbes.asyncdriver.action.ElementActionsFactory;
 import uk.co.stuforbes.asyncdriver.assertion.AsyncElementAssertable;
 import uk.co.stuforbes.asyncdriver.assertion.ElementAssertable;
+import uk.co.stuforbes.asyncdriver.element.collection.AsyncElementCollection;
+import uk.co.stuforbes.asyncdriver.element.collection.AsyncListElementFactory;
+import uk.co.stuforbes.asyncdriver.element.collection.ElementCollection;
 import uk.co.stuforbes.asyncdriver.poll.Poller;
+import uk.co.stuforbes.asyncdriver.util.ByUtils;
 import uk.co.stuforbes.asyncdriver.webdriver.Traversable;
 
 public class AsyncElement implements Element, Traversable {
@@ -46,9 +52,10 @@ public class AsyncElement implements Element, Traversable {
     }
 
 
-    public ElementCollection children(final By by, final int expectedChildrenCount) {
-        LOG.debug("Creating children with criteria {}, expecting child count to be {}", by, expectedChildrenCount);
-        return new AsyncElementCollection(by, expectedChildrenCount, poller, this);
+    public ElementCollection children(final By by) {
+        LOG.debug("Creating children with criteria {}", by);
+        return new AsyncElementCollection(by, poller, this, new AsyncListElementFactory(by, poller,
+                elementActionsFactory));
     }
 
 
@@ -69,9 +76,15 @@ public class AsyncElement implements Element, Traversable {
     }
 
 
+    public List<WebElement> locateAllWith(final By by) {
+        LOG.debug("Locating all children with criteria {}", by);
+        return find().findElements(by);
+    }
+
+
     public void describeTo(final Description description) {
         description.appendText("An element located ");
-        description.appendText(byAsString());
+        description.appendText(ByUtils.asString(by));
         if (parentLocatable instanceof SelfDescribing) {
             description.appendText(", inside ");
             description.appendDescriptionOf((SelfDescribing) parentLocatable);
@@ -82,13 +95,5 @@ public class AsyncElement implements Element, Traversable {
     @Override
     public String toString() {
         return parentLocatable.toString() + " -> " + by;
-    }
-
-
-    private String byAsString() {
-        String byString = by.toString();
-        byString = byString.replaceFirst("By.", "by ");
-        byString = byString.replaceFirst(": ", "=");
-        return byString;
     }
 }

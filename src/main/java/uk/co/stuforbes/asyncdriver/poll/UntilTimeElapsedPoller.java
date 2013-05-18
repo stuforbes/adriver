@@ -1,13 +1,12 @@
 package uk.co.stuforbes.asyncdriver.poll;
 
 import org.apache.commons.lang3.time.StopWatch;
-import org.hamcrest.StringDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.co.stuforbes.asyncdriver.probe.Probe;
 
-public class UntilTimeElapsedPoller implements Poller {
+public class UntilTimeElapsedPoller extends AbstractPoller {
 
     private static final Logger LOG = LoggerFactory.getLogger(UntilTimeElapsedPoller.class);
 
@@ -23,32 +22,19 @@ public class UntilTimeElapsedPoller implements Poller {
     }
 
 
+    @Override
     public void doProbe(final Probe probe) {
         LOG.debug("Starting poll with the probe " + probe.getClass().getName());
         startTheClock();
 
-        final boolean isSatisfied = doPoll(probe);
-        if (!isSatisfied) {
-            throw new AssertionError(addFailureDescriptionFrom(probe));
-        }
+        super.doProbe(probe);
 
         stopTheClock();
     }
 
 
-    private String addFailureDescriptionFrom(final Probe probe) {
-        final StringDescription description = new StringDescription();
-
-        description.appendText("\nWas expecting:\n    ");
-        probe.describeTo(description);
-        description.appendText("\nbut:\n    ");
-        probe.describeFailureTo(description);
-
-        return description.toString();
-    }
-
-
-    private boolean doPoll(final Probe probe) {
+    @Override
+    protected boolean doPoll(final Probe probe) {
         do {
             probe.doProbe();
 

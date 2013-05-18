@@ -1,8 +1,10 @@
 package uk.co.stuforbes.asyncdriver.assertion;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
@@ -12,13 +14,14 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
 import uk.co.stuforbes.asyncdriver.poll.DoOnceOnlyPoller;
+import uk.co.stuforbes.asyncdriver.poll.Poller;
 
 public class AsyncDriverAssertionsTest {
 
     @Rule
     public JUnitRuleMockery context = new JUnitRuleMockery();
 
-    private DoOnceOnlyPoller poller;
+    private Poller poller;
     private WebDriver webDriver;
 
     private DriverAssertable assertions;
@@ -52,7 +55,6 @@ public class AsyncDriverAssertionsTest {
         });
 
         assertions.thatPageSource(pageSourceMatcher);
-        assertThat(poller.isSatisfied(), is(true));
     }
 
 
@@ -70,11 +72,19 @@ public class AsyncDriverAssertionsTest {
 
                 oneOf(pageSourceMatcher).matches(pageSource);
                 will(returnValue(false));
+
+                oneOf(pageSourceMatcher).describeTo(with(any(Description.class)));
+                oneOf(pageSourceMatcher).describeTo(with(any(Description.class)));
             }
         });
 
-        assertions.thatPageSource(pageSourceMatcher);
-        assertThat(poller.isSatisfied(), is(false));
+        try {
+            assertions.thatPageSource(pageSourceMatcher);
+            fail("Expected an " + AssertionError.class.getName());
+        } catch (final AssertionError ex) {
+            assertThat(ex.getMessage(), containsString("Was expecting:\n    Page Source that matches"));
+            assertThat(ex.getMessage(), containsString("but:\n    Page Source does not match"));
+        }
     }
 
 
@@ -96,7 +106,6 @@ public class AsyncDriverAssertionsTest {
         });
 
         assertions.thatCurrentUrl(currentUrlMatcher);
-        assertThat(poller.isSatisfied(), is(true));
     }
 
 
@@ -114,10 +123,18 @@ public class AsyncDriverAssertionsTest {
 
                 oneOf(currentUrlMatcher).matches(currentUrl);
                 will(returnValue(false));
+
+                oneOf(currentUrlMatcher).describeTo(with(any(Description.class)));
+                oneOf(currentUrlMatcher).describeTo(with(any(Description.class)));
             }
         });
 
-        assertions.thatCurrentUrl(currentUrlMatcher);
-        assertThat(poller.isSatisfied(), is(false));
+        try {
+            assertions.thatCurrentUrl(currentUrlMatcher);
+            fail("Expected an " + AssertionError.class.getName());
+        } catch (final AssertionError ex) {
+            assertThat(ex.getMessage(), containsString("Was expecting:\n    Current URL that matches"));
+            assertThat(ex.getMessage(), containsString("but:\n    Current URL does not match"));
+        }
     }
 }

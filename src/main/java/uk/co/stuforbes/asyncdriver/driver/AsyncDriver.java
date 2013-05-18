@@ -1,5 +1,7 @@
 package uk.co.stuforbes.asyncdriver.driver;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,9 +15,10 @@ import uk.co.stuforbes.asyncdriver.action.ElementActionsFactory;
 import uk.co.stuforbes.asyncdriver.assertion.AsyncDriverAssertable;
 import uk.co.stuforbes.asyncdriver.assertion.DriverAssertable;
 import uk.co.stuforbes.asyncdriver.element.AsyncElement;
-import uk.co.stuforbes.asyncdriver.element.AsyncElementCollection;
 import uk.co.stuforbes.asyncdriver.element.Element;
-import uk.co.stuforbes.asyncdriver.element.ElementCollection;
+import uk.co.stuforbes.asyncdriver.element.collection.AsyncElementCollection;
+import uk.co.stuforbes.asyncdriver.element.collection.AsyncListElementFactory;
+import uk.co.stuforbes.asyncdriver.element.collection.ElementCollection;
 import uk.co.stuforbes.asyncdriver.poll.Poller;
 import uk.co.stuforbes.asyncdriver.webdriver.Traversable;
 
@@ -39,9 +42,9 @@ public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
     }
 
 
-    public ElementCollection children(final By by, final int expectedChildrenCount) {
+    public ElementCollection children(final By by) {
         LOG.debug("Creating children collection of {} with criteria {}", this, by);
-        return new AsyncElementCollection(by, expectedChildrenCount, poller, this);
+        return new AsyncElementCollection(by, poller, this, new AsyncListElementFactory(by, poller, this));
     }
 
 
@@ -73,6 +76,11 @@ public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
     public WebElement locateWith(final By by) {
         // This will throw a NotFoundException if it doesn't exist
         return webDriver.findElement(by);
+    }
+
+
+    public List<WebElement> locateAllWith(final By by) {
+        return webDriver.findElements(by);
     }
 
 

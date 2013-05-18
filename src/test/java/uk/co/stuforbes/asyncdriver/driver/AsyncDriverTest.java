@@ -15,9 +15,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stuforbes.asyncdriver.element.AsyncElement;
-import uk.co.stuforbes.asyncdriver.element.AsyncElementCollection;
 import uk.co.stuforbes.asyncdriver.element.Element;
-import uk.co.stuforbes.asyncdriver.element.ElementCollection;
+import uk.co.stuforbes.asyncdriver.element.collection.AsyncElementCollection;
+import uk.co.stuforbes.asyncdriver.element.collection.ElementCollection;
 import uk.co.stuforbes.asyncdriver.poll.Poller;
 
 public class AsyncDriverTest {
@@ -52,7 +52,7 @@ public class AsyncDriverTest {
     @Test
     public void findChildrenReturnsNewAsyncCollection() {
 
-        final ElementCollection children = driver.children(By.id("an-id"), 3);
+        final ElementCollection children = driver.children(By.id("an-id"));
 
         assertThat(children, is(instanceOf(AsyncElementCollection.class)));
     }
