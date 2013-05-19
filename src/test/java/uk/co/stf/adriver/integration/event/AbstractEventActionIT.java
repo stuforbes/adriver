@@ -13,7 +13,7 @@ public abstract class AbstractEventActionIT extends AbstractDriverIT {
     @Test
     public void canLeftClickOnElements() {
         final Element eventPanel = driver.child(By.id("event-panel"));
-        eventPanel.actions().click();
+        eventPanel.perform().click();
 
         eventPanel.assertThat().hasText(is("Left click event has occurred"));
     }
@@ -22,7 +22,7 @@ public abstract class AbstractEventActionIT extends AbstractDriverIT {
     @Test
     public void canRightClickOnElements() {
         final Element eventPanel = driver.child(By.id("event-panel"));
-        eventPanel.actions().rightClick();
+        eventPanel.perform().rightClick();
 
         eventPanel.assertThat().hasText(is("Right click event has occurred"));
     }
@@ -31,7 +31,7 @@ public abstract class AbstractEventActionIT extends AbstractDriverIT {
     @Test
     public void canDoubleClickOnElements() {
         final Element eventPanel = driver.child(By.id("event-panel"));
-        eventPanel.actions().doubleClick();
+        eventPanel.perform().doubleClick();
 
         eventPanel.assertThat().hasText(is("Double click event has occurred"));
     }
@@ -40,7 +40,7 @@ public abstract class AbstractEventActionIT extends AbstractDriverIT {
     @Test
     public void canMoveMouseOverElements() {
         final Element eventPanel = driver.child(By.id("event-panel"));
-        eventPanel.actions().moveMouseOver();
+        eventPanel.perform().moveMouseOver();
 
         eventPanel.assertThat().hasText(is("Mouse over event has occurred"));
     }

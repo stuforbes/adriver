@@ -69,7 +69,7 @@ public class AsyncElement implements Element, Traversable {
 
 
     @Override
-    public ElementActions actions() {
+    public ElementActions perform() {
         return elementActionsFactory.createActionsFor(this);
     }
 

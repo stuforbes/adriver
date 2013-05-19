@@ -25,8 +25,9 @@ public abstract class AbstractCollectionIT extends AbstractDriverIT {
         final Element list = driver.child(By.tagName("ul"));
 
         list.children(By.tagName("input")).each(3, new ElementOperator() {
+            @Override
             public void doWith(final Element element) {
-                element.actions().click();
+                element.perform().click();
             }
         });
 
@@ -44,8 +45,9 @@ public abstract class AbstractCollectionIT extends AbstractDriverIT {
         final Element list = driver.child(By.tagName("ul"));
 
         list.children(By.tagName("input")).nth(2, new ElementOperator() {
+            @Override
             public void doWith(final Element element) {
-                element.actions().click();
+                element.perform().click();
             }
         });
 
@@ -63,8 +65,9 @@ public abstract class AbstractCollectionIT extends AbstractDriverIT {
         final Element list = driver.child(By.tagName("ul"));
 
         list.children(By.tagName("input")).where(3, new OddNumberPredicate(), new ElementOperator() {
+            @Override
             public void doWith(final Element element) {
-                element.actions().click();
+                element.perform().click();
             }
         });
 
@@ -75,6 +78,7 @@ public abstract class AbstractCollectionIT extends AbstractDriverIT {
 
     private static final class OddNumberPredicate implements Predicate<WebElement> {
 
+        @Override
         public boolean apply(final WebElement element) {
             final String id = element.getAttribute("id");
             if (id.length() == 3) {

@@ -11,5 +11,5 @@ public interface Element extends SelfDescribing, ElementContainer, WebElementLoc
     ElementAssertable assertThat();
 
 
-    ElementActions actions();
+    ElementActions perform();
 }
