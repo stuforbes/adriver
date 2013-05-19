@@ -50,6 +50,12 @@
 		<developerConnection>scm:git:git@github.com:stuforbes/adriver.git</developerConnection>
 	  <tag>HEAD</tag>
   </scm>
+  
+  <distributionManagement>
+  	<repository>
+  		<id>local-repo</id>
+  	</repository>
+  </distributionManagement>
 
 	<dependencies>
 		<dependency>
