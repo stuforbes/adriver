@@ -3,6 +3,8 @@ package uk.co.stf.adriver.element.collection.probe;
 import org.hamcrest.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.co.stf.adriver.element.ElementOperator;
 import uk.co.stf.adriver.element.collection.ElementFactory;
@@ -10,6 +12,8 @@ import uk.co.stf.adriver.util.ByUtils;
 import uk.co.stf.adriver.webdriver.Traversable;
 
 public class NthChildProbe extends AbstractElementCollectionProbe {
+
+    private static final Logger LOG = LoggerFactory.getLogger(NthChildProbe.class);
 
     private final int n;
 
@@ -23,12 +27,14 @@ public class NthChildProbe extends AbstractElementCollectionProbe {
 
     @Override
     protected boolean isSatisfied(final int size) {
+        LOG.debug("Checking if size {} is greater than n {}", size, n);
         return size > n;
     }
 
 
     @Override
     protected boolean isValidWebElement(final int position, final WebElement element) {
+        LOG.debug("Checking if position {} == n {}", position, n);
         return position == n;
     }
 

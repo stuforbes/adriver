@@ -3,6 +3,8 @@ package uk.co.stf.adriver.element.collection.probe;
 import org.hamcrest.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.co.stf.adriver.element.ElementOperator;
 import uk.co.stf.adriver.element.collection.ElementFactory;
@@ -10,6 +12,8 @@ import uk.co.stf.adriver.util.ByUtils;
 import uk.co.stf.adriver.webdriver.Traversable;
 
 public class EachChildProbe extends AbstractElementCollectionProbe {
+
+    private static final Logger LOG = LoggerFactory.getLogger(EachChildProbe.class);
 
     private final int expectedCount;
 
@@ -23,6 +27,7 @@ public class EachChildProbe extends AbstractElementCollectionProbe {
 
     @Override
     protected boolean isSatisfied(final int size) {
+        LOG.debug("Checking if size {} == expectedCount {}", size, expectedCount);
         return size == expectedCount;
     }
 

@@ -59,9 +59,16 @@ public abstract class AbstractElementCollectionProbe implements Probe {
 
     public void doProbe() {
         try {
+            LOG.debug("About to do probe");
             allElements = parent.locateAllWith(by);
+
+            LOG.debug("Found {} elements", allElements.size());
+
             if (isSatisfied()) {
+                LOG.debug("Probe is satisfied. About to do element operation");
                 doElementOperation(allElements);
+            } else {
+                LOG.debug("Probe is not satisfied. About to do element operation");
             }
         } catch (final NotFoundException ex) {
             // No-op, this may be expected behaviour
@@ -82,6 +89,8 @@ public abstract class AbstractElementCollectionProbe implements Probe {
     protected void doElementOperation(final List<WebElement> elements) {
         for (int i = 0; i < elements.size(); i++) {
             if (isValidWebElement(i, elements.get(i))) {
+                LOG.debug("WebElement {} at position {} is applicable. About to do element operation", elements.get(i),
+                        i);
                 final Element element = elementFactory.createForPositionInList(i, parent);
                 operator.doWith(element);
             }

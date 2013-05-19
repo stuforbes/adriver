@@ -3,6 +3,8 @@ package uk.co.stf.adriver.element.collection.probe;
 import org.hamcrest.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.co.stf.adriver.element.ElementOperator;
 import uk.co.stf.adriver.element.collection.ElementFactory;
@@ -12,6 +14,8 @@ import uk.co.stf.adriver.webdriver.Traversable;
 import com.google.common.base.Predicate;
 
 public class WhereChildProbe extends AbstractElementCollectionProbe {
+
+    private static final Logger LOG = LoggerFactory.getLogger(WhereChildProbe.class);
 
     private final int expectedCount;
     private final Predicate<WebElement> predicate;
@@ -27,13 +31,23 @@ public class WhereChildProbe extends AbstractElementCollectionProbe {
 
     @Override
     protected boolean isSatisfied(final int size) {
+        LOG.debug("Checking if size {} == expectedCount {}", size, expectedCount);
         return size == expectedCount;
     }
 
 
     @Override
     protected boolean isValidWebElement(final int position, final WebElement element) {
-        return predicate.apply(element);
+
+        final boolean result = predicate.apply(element);
+        if (result) {
+            LOG.debug("WebElement {} at position {} matches predicate {}",
+                    new Object[] { element, position, predicate });
+        } else {
+            LOG.debug("WebElement {} at position {} does not match predicate {}", new Object[] { element, position,
+                    predicate });
+        }
+        return result;
     }
 
 
