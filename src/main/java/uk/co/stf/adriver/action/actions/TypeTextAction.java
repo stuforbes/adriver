@@ -17,6 +17,7 @@ public class TypeTextAction implements ElementAction {
     }
 
 
+    @Override
     public void doActionOn(final WebElement element) {
         LOG.debug("Typing text {} on element {}", text, element);
         element.sendKeys(text);

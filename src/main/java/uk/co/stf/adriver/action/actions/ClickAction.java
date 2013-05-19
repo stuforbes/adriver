@@ -11,6 +11,7 @@ public class ClickAction implements ElementAction {
     private static final Logger LOG = LoggerFactory.getLogger(ClickAction.class);
 
 
+    @Override
     public void doActionOn(final WebElement element) {
         LOG.debug("Clicking on " + element);
         element.click();

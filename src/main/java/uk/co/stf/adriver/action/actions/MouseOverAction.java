@@ -7,22 +7,21 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stf.adriver.action.ElementAction;
 
-public class RightClickAction implements ElementAction {
+public class MouseOverAction implements ElementAction {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RightClickAction.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TypeTextAction.class);
 
     private final Actions actions;
 
 
-    public RightClickAction(final Actions actions) {
+    public MouseOverAction(final Actions actions) {
         this.actions = actions;
     }
 
 
     @Override
     public void doActionOn(final WebElement element) {
-        LOG.debug("Right clicking on element {}", element);
-        actions.contextClick(element).perform();
+        LOG.debug("Moving mouse over element {}", element);
+        actions.moveToElement(element).perform();
     }
-
 }

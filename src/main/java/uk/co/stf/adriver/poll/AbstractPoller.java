@@ -6,6 +6,7 @@ import uk.co.stf.adriver.probe.Probe;
 
 public abstract class AbstractPoller implements Poller {
 
+    @Override
     public void doProbe(final Probe probe) {
         final boolean isSatisfied = doPoll(probe);
         if (!isSatisfied) {

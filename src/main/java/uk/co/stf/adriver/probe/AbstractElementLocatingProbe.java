@@ -32,6 +32,7 @@ public abstract class AbstractElementLocatingProbe implements Probe {
     }
 
 
+    @Override
     public void doProbe() {
 
         try {
@@ -63,6 +64,7 @@ public abstract class AbstractElementLocatingProbe implements Probe {
     }
 
 
+    @Override
     public boolean isSatisfied() {
         final boolean result = isElementSatisfied(webElementAsOption(locatedWebElement));
         LOG.debug("Probe is " + (result ? "" : "not") + " satisfied");
@@ -70,11 +72,13 @@ public abstract class AbstractElementLocatingProbe implements Probe {
     }
 
 
+    @Override
     public void describeTo(final Description description) {
         description.appendDescriptionOf(describer);
     }
 
 
+    @Override
     public void describeFailureTo(final Description description) {
 
         if (locatedWebElement == null) {

@@ -19,11 +19,13 @@ public class CollectionItemTraversable implements Traversable {
     }
 
 
+    @Override
     public WebElement locateWith(final By by) {
         return collectionContainer.locateAllWith(by).get(n);
     }
 
 
+    @Override
     public List<WebElement> locateAllWith(final By by) {
         throw new UnsupportedOperationException("Not supported");
     }

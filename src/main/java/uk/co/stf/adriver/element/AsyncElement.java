@@ -40,18 +40,21 @@ public class AsyncElement implements Element, Traversable {
     }
 
 
+    @Override
     public WebElement find() {
         LOG.debug("Finding element from parent {} using criteria {}", parentLocatable, by);
         return parentLocatable.locateWith(this.by);
     }
 
 
+    @Override
     public Element child(final By by) {
         LOG.debug("Creating child with criteria {}", by);
         return new AsyncElement(by, poller, this, elementActionsFactory);
     }
 
 
+    @Override
     public ElementCollection children(final By by) {
         LOG.debug("Creating children with criteria {}", by);
         return new AsyncElementCollection(by, poller, this, new AsyncListElementFactory(by, poller,
@@ -59,16 +62,19 @@ public class AsyncElement implements Element, Traversable {
     }
 
 
+    @Override
     public ElementAssertable assertThat() {
         return new AsyncElementAssertable(poller, this, this);
     }
 
 
+    @Override
     public ElementActions actions() {
         return elementActionsFactory.createActionsFor(this);
     }
 
 
+    @Override
     public WebElement locateWith(final By by) {
         // This will throw a NotFoundException if it doesn't exist
         LOG.debug("Locating child with criteria {}", by);
@@ -76,12 +82,14 @@ public class AsyncElement implements Element, Traversable {
     }
 
 
+    @Override
     public List<WebElement> locateAllWith(final By by) {
         LOG.debug("Locating all children with criteria {}", by);
         return find().findElements(by);
     }
 
 
+    @Override
     public void describeTo(final Description description) {
         description.appendText("An element located ");
         description.appendText(ByUtils.asString(by));

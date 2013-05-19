@@ -11,6 +11,7 @@ public class SubmitAction implements ElementAction {
     private static final Logger LOG = LoggerFactory.getLogger(TypeTextAction.class);
 
 
+    @Override
     public void doActionOn(final WebElement element) {
         LOG.debug("Submitting element {}", element);
         element.submit();

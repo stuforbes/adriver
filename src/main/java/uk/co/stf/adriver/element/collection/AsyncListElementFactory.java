@@ -23,6 +23,7 @@ public class AsyncListElementFactory implements ElementFactory {
     }
 
 
+    @Override
     public Element createForPositionInList(final int i, final Traversable parent) {
         return new AsyncElement(by, poller, new CollectionItemTraversable(i, parent), elementActionsFactory);
     }

@@ -20,6 +20,7 @@ public class SelectOptionAction implements ElementAction {
     }
 
 
+    @Override
     public void doActionOn(final WebElement element) {
         LOG.debug("Selecting option {} in element {}", optionText, element);
         new Select(element).selectByVisibleText(optionText);

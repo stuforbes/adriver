@@ -18,6 +18,7 @@ public class DoubleClickAction implements ElementAction {
     }
 
 
+    @Override
     public void doActionOn(final WebElement element) {
         LOG.debug("Double-clicking on " + element);
         actions.doubleClick(element).perform();

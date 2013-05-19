@@ -33,18 +33,21 @@ public class AsyncElementAssertable implements ElementAssertable {
     }
 
 
+    @Override
     public void doesExist() {
         LOG.debug("Asserting that element {} does exist", elementLocator);
         poller.doProbe(new DoesExistProbe(elementLocator, elementDescriber));
     }
 
 
+    @Override
     public void doesNotExist() {
         LOG.debug("Asserting that element {} does not exist", elementLocator);
         poller.doProbe(new DoesNotExistProbe(elementLocator, elementDescriber));
     }
 
 
+    @Override
     public void hasAttribute(final String attributeName, final Matcher<String> valueMatcher) {
         LOG.debug("Asserting that element {} has attribute {} with matcher {}", new Object[] { elementLocator,
                 attributeName, valueMatcher });
@@ -52,12 +55,14 @@ public class AsyncElementAssertable implements ElementAssertable {
     }
 
 
+    @Override
     public void hasText(final Matcher<String> textMatcher) {
         LOG.debug("Asserting that element {} has text {}", elementLocator, textMatcher);
         poller.doProbe(new HasTextProbe(elementLocator, elementDescriber, textMatcher));
     }
 
 
+    @Override
     public void matches(final Matcher<WebElement> elementMatcher) {
         LOG.debug("Asserting that element {} matches {}", elementLocator, elementMatcher);
         poller.doProbe(new GenericElementMatcherProbe(elementLocator, elementDescriber, elementMatcher));

@@ -15,16 +15,19 @@ public abstract class MatcherProbe<T> implements Probe {
     }
 
 
+    @Override
     public void doProbe() {
         // No-op
     }
 
 
+    @Override
     public boolean isSatisfied() {
         return matcher.matches(content());
     }
 
 
+    @Override
     public void describeTo(final Description description) {
         description.appendText(descriptionContext);
         description.appendText(" that matches '");
@@ -33,6 +36,7 @@ public abstract class MatcherProbe<T> implements Probe {
     }
 
 
+    @Override
     public void describeFailureTo(final Description description) {
         description.appendText(descriptionContext);
         description.appendText(" does not match '");

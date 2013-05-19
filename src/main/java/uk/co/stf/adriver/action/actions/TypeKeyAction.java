@@ -18,6 +18,7 @@ public class TypeKeyAction implements ElementAction {
     }
 
 
+    @Override
     public void doActionOn(final WebElement element) {
         LOG.debug("Typing key {} on element {}", key, element);
         element.sendKeys(key);

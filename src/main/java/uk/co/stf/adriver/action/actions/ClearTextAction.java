@@ -11,6 +11,7 @@ public class ClearTextAction implements ElementAction {
     private static final Logger LOG = LoggerFactory.getLogger(TypeTextAction.class);
 
 
+    @Override
     public void doActionOn(final WebElement element) {
         LOG.debug("Clearing on element {}", element);
         element.clear();

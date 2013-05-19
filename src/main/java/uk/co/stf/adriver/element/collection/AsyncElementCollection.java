@@ -35,6 +35,7 @@ public class AsyncElementCollection implements ElementCollection {
     }
 
 
+    @Override
     public void each(final int expectedCount, final ElementOperator operator) {
         LOG.debug("Handling each of the expected {} children of parent {} with criteria {}", new Object[] {
                 expectedCount, parent, by });
@@ -42,12 +43,14 @@ public class AsyncElementCollection implements ElementCollection {
     }
 
 
+    @Override
     public void nth(final int n, final ElementOperator operator) {
         LOG.debug("Handling child {} of parent {} with criteria {}", new Object[] { n, parent, by });
         doProbe(new NthChildProbe(by, parent, n, operator, elementFactory));
     }
 
 
+    @Override
     public void where(final int expectedCount, final Predicate<WebElement> predicate, final ElementOperator operator) {
         LOG.debug("Handling {} children of parent {} with criteria {} where predicate {} is applicable", new Object[] {
                 expectedCount, parent, by, predicate });

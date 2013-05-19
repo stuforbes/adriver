@@ -42,21 +42,25 @@ public abstract class AbstractElementCollectionProbe implements Probe {
     }
 
 
+    @Override
     public void describeFailureTo(final Description description) {
         failureDescriptionOf(by, parent, allElements.size(), description);
     }
 
 
+    @Override
     public void describeTo(final Description description) {
         descriptionOf(by, parent, allElements.size(), description);
     }
 
 
+    @Override
     public boolean isSatisfied() {
         return isSatisfied(allElements.size());
     }
 
 
+    @Override
     public void doProbe() {
         try {
             LOG.debug("About to do probe");

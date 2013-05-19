@@ -22,6 +22,7 @@ public class AsyncDriverAssertable implements DriverAssertable {
     }
 
 
+    @Override
     public void thatPageSource(final Matcher<String> matcher) {
         LOG.debug("Asserting that page source matches " + matcher.toString());
         poller.doProbe(new MatcherProbe<String>("Page Source", matcher) {
@@ -33,6 +34,7 @@ public class AsyncDriverAssertable implements DriverAssertable {
     }
 
 
+    @Override
     public void thatCurrentUrl(final Matcher<String> matcher) {
         LOG.debug("Asserting that url matches " + matcher.toString());
         poller.doProbe(new MatcherProbe<String>("Current URL", matcher) {
