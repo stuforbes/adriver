@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.co.stf</groupId>
 	<artifactId>adriver</artifactId>
@@ -48,14 +49,16 @@
 		<connection>scm:git:git@github.com:stuforbes/adriver.git</connection>
 		<url>scm:git:git@github.com:stuforbes/adriver.git</url>
 		<developerConnection>scm:git:git@github.com:stuforbes/adriver.git</developerConnection>
-	  <tag>HEAD</tag>
-  </scm>
-  
-  <distributionManagement>
-  	<repository>
-  		<id>local-repo</id>
-  	</repository>
-  </distributionManagement>
+		<tag>HEAD</tag>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>local-repo</id>
+			<url>${local.repo}</url>
+			<layout>default</layout>
+		</repository>
+	</distributionManagement>
 
 	<dependencies>
 		<dependency>
