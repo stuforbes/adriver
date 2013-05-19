@@ -1,10 +1,29 @@
 <html>
-<head>
+<body onload="startTimer()">
+<div id="top" style="display:none">
+	<div id="content"></div>
+	<input type="checkbox" id="cb" onclick="doCheckboxClick()" />
+	<input type="textbox" id="tb" onkeyup="doTextFieldChange()"/>
+	
+	<input type="radio" name="rdo" id="r1" value="Radio 1" onclick="doRadioClick(this.value)"/>
+	<input type="radio" name="rdo" id="r2" value="Radio 2" onclick="doRadioClick(this.value)"/>
+	
+	<select id="sel" onchange="doSelectChange(this.value)">
+		<option value="">Not Selected</option>
+		<option value="option-1">Option 1</option>
+		<option value="option-2">Option 2</option>
+	</select>
+	
+	<form method="GET">
+		<input type="text" name="some-text"/>
+		<input type="submit" name="submit-button" value="Submit"/>
+	</form>
+	
+</div>
+</div>
 <script type="text/javascript">
 	function startTimer(){
-	console.log('starting timer');
 		setTimeout(function(){
-		console.log('timeout');
 			document.getElementById('top').style.display='block';
 		}, 1000);
 	}
@@ -33,28 +52,5 @@
 		}, 1000);
 	}
 </script>
-</head>
-<body onload="startTimer()">
-<div id="top" style="display:none">
-	<div id="content"></div>
-	<input type="checkbox" id="cb" onclick="doCheckboxClick()" />
-	<input type="textbox" id="tb" onkeyup="doTextFieldChange()"/>
-	
-	<input type="radio" name="rdo" id="r1" value="Radio 1" onclick="doRadioClick(this.value)"/>
-	<input type="radio" name="rdo" id="r2" value="Radio 2" onclick="doRadioClick(this.value)"/>
-	
-	<select id="sel" onchange="doSelectChange(this.value)">
-		<option value="">Not Selected</option>
-		<option value="option-1">Option 1</option>
-		<option value="option-2">Option 2</option>
-	</select>
-	
-	<form method="GET">
-		<input type="text" name="some-text"/>
-		<input type="submit" name="submit-button" value="Submit"/>
-	</form>
-	
-</div>
-</div>
 </body>
 </html>

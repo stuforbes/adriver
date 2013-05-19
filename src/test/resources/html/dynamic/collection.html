@@ -1,19 +1,4 @@
 <html>
-<head>
-<script type="text/javascript">
-	function startTimer(){
-		setTimeout(function(){
-			document.getElementById('top').style.display='block';
-		}, 1000);
-	}
-	
-	function doCheckboxClick(text){
-		setTimeout(function(){
-			document.getElementById('content').innerHTML += text+'<br/>';
-		}, 1000);
-	}
-</script>
-</head>
 <body onload="startTimer()">
 <div id="top" style="display:none">
 	<div id="content"></div>
@@ -30,5 +15,18 @@
 	</ul>
 </div>
 </div>
+<script type="text/javascript">
+	function startTimer(){
+		setTimeout(function(){
+			document.getElementById('top').style.display='block';
+		}, 1000);
+	}
+	
+	function doCheckboxClick(text){
+		setTimeout(function(){
+			document.getElementById('content').innerHTML += text+'<br/>';
+		}, 1000);
+	}
+</script>
 </body>
 </html>

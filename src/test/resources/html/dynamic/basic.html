@@ -1,15 +1,4 @@
 <html>
-<head>
-<script type="text/javascript">
-	function startTimer(){
-	console.log('starting timer');
-		setTimeout(function(){
-		console.log('timeout');
-			document.getElementById('top').style.display='block';
-		}, 1000);
-	}
-</script>
-</head>
 <body onload="startTimer()">
 <div id="top" style="display:none">
 	<div id="first">
@@ -23,5 +12,12 @@
 	</div>
 </div>
 </div>
+<script type="text/javascript">
+	function startTimer(){
+		setTimeout(function(){
+			document.getElementById('top').style.display='block';
+		}, 1000);
+	}
+</script>
 </body>
 </html>

@@ -4,23 +4,24 @@ import java.net.URL;
 
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.co.stf.adriver.driver.AsyncDriver;
-import uk.co.stf.adriver.poll.UntilTimeElapsedPoller;
+import uk.co.stf.adriver.driver.Driver;
 
 public abstract class AbstractDriverIT {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDriverIT.class);
 
-    protected AsyncDriver driver;
+    protected Driver driver;
 
 
     @Before
     public void initialise() {
-        this.driver = new AsyncDriver(new UntilTimeElapsedPoller(timeout(), pollFreq()), new FirefoxDriver());
+        this.driver = AsyncDriver.createAsynDriver(createWebDriver(), timeout(), pollFreq());
 
         final URL resource = getClass().getResource(String.format("/html/%s/%s", folder(), filename()));
 
@@ -45,4 +46,9 @@ public abstract class AbstractDriverIT {
 
 
     protected abstract long pollFreq();
+
+
+    private WebDriver createWebDriver() {
+        return new FirefoxDriver();
+    }
 }

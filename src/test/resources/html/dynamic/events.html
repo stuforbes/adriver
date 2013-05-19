@@ -8,6 +8,10 @@
 	}
 </style>
 	
+</head>
+<body onload="startTimer()">
+<div id="event-panel" onclick="handleClick()" onDblClick="handleDoubleClick()" oncontextmenu="handleRightClick()" onmouseover="handleMouseOver()">
+</div>
 <script type="text/javascript">
 	function startTimer(){
 		setTimeout(function(){
@@ -43,9 +47,5 @@
 		}, 1000);
 	}
 </script>
-</head>
-<body onload="startTimer()">
-<div id="event-panel" onclick="handleClick()" onDblClick="handleDoubleClick()" oncontextmenu="handleRightClick()" onmouseover="handleMouseOver()">
-</div>
 </body>
 </html>

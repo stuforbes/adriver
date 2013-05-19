@@ -20,6 +20,7 @@ import uk.co.stf.adriver.element.collection.AsyncElementCollection;
 import uk.co.stf.adriver.element.collection.AsyncListElementFactory;
 import uk.co.stf.adriver.element.collection.ElementCollection;
 import uk.co.stf.adriver.poll.Poller;
+import uk.co.stf.adriver.poll.UntilTimeElapsedPoller;
 import uk.co.stf.adriver.webdriver.Traversable;
 
 public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
@@ -30,7 +31,12 @@ public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
     private final Poller poller;
 
 
-    public AsyncDriver(final Poller poller, final WebDriver webDriver) {
+    public static Driver createAsynDriver(final WebDriver webDriver, final long timeout, final long pollFrequency) {
+        return new AsyncDriver(new UntilTimeElapsedPoller(timeout, pollFrequency), webDriver);
+    }
+
+
+    AsyncDriver(final Poller poller, final WebDriver webDriver) {
         this.poller = poller;
         this.webDriver = webDriver;
     }
