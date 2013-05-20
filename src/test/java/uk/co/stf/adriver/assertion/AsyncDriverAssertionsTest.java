@@ -13,10 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
-import uk.co.stf.adriver.assertion.AsyncDriverAssertable;
-import uk.co.stf.adriver.assertion.DriverAssertable;
-import uk.co.stf.adriver.poll.Poller;
 import uk.co.stf.adriver.poll.DoOnceOnlyPoller;
+import uk.co.stf.adriver.poll.Poller;
 
 public class AsyncDriverAssertionsTest {
 
@@ -56,7 +54,7 @@ public class AsyncDriverAssertionsTest {
             }
         });
 
-        assertions.thatPageSource(pageSourceMatcher);
+        assertions.pageSource(pageSourceMatcher);
     }
 
 
@@ -81,7 +79,7 @@ public class AsyncDriverAssertionsTest {
         });
 
         try {
-            assertions.thatPageSource(pageSourceMatcher);
+            assertions.pageSource(pageSourceMatcher);
             fail("Expected an " + AssertionError.class.getName());
         } catch (final AssertionError ex) {
             assertThat(ex.getMessage(), containsString("Was expecting:\n    Page Source that matches"));
@@ -107,7 +105,7 @@ public class AsyncDriverAssertionsTest {
             }
         });
 
-        assertions.thatCurrentUrl(currentUrlMatcher);
+        assertions.currentUrl(currentUrlMatcher);
     }
 
 
@@ -132,11 +130,62 @@ public class AsyncDriverAssertionsTest {
         });
 
         try {
-            assertions.thatCurrentUrl(currentUrlMatcher);
+            assertions.currentUrl(currentUrlMatcher);
             fail("Expected an " + AssertionError.class.getName());
         } catch (final AssertionError ex) {
             assertThat(ex.getMessage(), containsString("Was expecting:\n    Current URL that matches"));
             assertThat(ex.getMessage(), containsString("but:\n    Current URL does not match"));
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void assertTitleIsValidIfTitleMatches() {
+
+        final String title = "Page title";
+        final Matcher<String> titleMatcher = context.mock(Matcher.class);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(webDriver).getTitle();
+                will(returnValue(title));
+
+                oneOf(titleMatcher).matches(title);
+                will(returnValue(true));
+            }
+        });
+
+        assertions.title(titleMatcher);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void assertTitleIsInvalidIfTitleDoesNotMatch() {
+
+        final String title = "Invalid Title";
+        final Matcher<String> titleMatcher = context.mock(Matcher.class);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(webDriver).getTitle();
+                will(returnValue(title));
+
+                oneOf(titleMatcher).matches(title);
+                will(returnValue(false));
+
+                oneOf(titleMatcher).describeTo(with(any(Description.class)));
+                oneOf(titleMatcher).describeTo(with(any(Description.class)));
+            }
+        });
+
+        try {
+            assertions.title(titleMatcher);
+            fail("Expected an " + AssertionError.class.getName());
+        } catch (final AssertionError ex) {
+            assertThat(ex.getMessage(), containsString("Was expecting:\n    Title that matches"));
+            assertThat(ex.getMessage(), containsString("but:\n    Title does not match"));
         }
     }
 }

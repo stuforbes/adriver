@@ -93,6 +93,6 @@ public abstract class AbstractFormActionIT extends AbstractDriverIT {
         top.child(By.tagName("form")).child(By.name("some-text")).perform().type("something");
         top.child(By.tagName("form")).child(By.name("some-text")).perform().submit();
 
-        driver.asserter().thatCurrentUrl(containsString("some-text=something"));
+        driver.assertThat().currentUrl(containsString("some-text=something"));
     }
 }

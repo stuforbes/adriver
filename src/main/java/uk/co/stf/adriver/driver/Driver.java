@@ -5,7 +5,7 @@ import uk.co.stf.adriver.element.ElementContainer;
 
 public interface Driver extends ElementContainer {
 
-    DriverAssertable asserter();
+    DriverAssertable assertThat();
 
 
     void navigateTo(String url);

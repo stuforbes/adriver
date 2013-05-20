@@ -57,7 +57,7 @@ public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
 
 
     @Override
-    public DriverAssertable asserter() {
+    public DriverAssertable assertThat() {
         return new AsyncDriverAssertable(poller, webDriver);
     }
 

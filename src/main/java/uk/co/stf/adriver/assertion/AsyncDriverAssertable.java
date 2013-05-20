@@ -23,7 +23,7 @@ public class AsyncDriverAssertable implements DriverAssertable {
 
 
     @Override
-    public void thatPageSource(final Matcher<String> matcher) {
+    public void pageSource(final Matcher<String> matcher) {
         LOG.debug("Asserting that page source matches " + matcher.toString());
         poller.doProbe(new MatcherProbe<String>("Page Source", matcher) {
             @Override
@@ -35,7 +35,7 @@ public class AsyncDriverAssertable implements DriverAssertable {
 
 
     @Override
-    public void thatCurrentUrl(final Matcher<String> matcher) {
+    public void currentUrl(final Matcher<String> matcher) {
         LOG.debug("Asserting that url matches " + matcher.toString());
         poller.doProbe(new MatcherProbe<String>("Current URL", matcher) {
             @Override
@@ -45,4 +45,15 @@ public class AsyncDriverAssertable implements DriverAssertable {
         });
     }
 
+
+    @Override
+    public void title(final Matcher<String> matcher) {
+        LOG.debug("Asserting that title matches " + matcher.toString());
+        poller.doProbe(new MatcherProbe<String>("Title", matcher) {
+            @Override
+            protected String content() {
+                return webDriver.getTitle();
+            }
+        });
+    }
 }

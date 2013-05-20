@@ -4,9 +4,11 @@ import org.hamcrest.Matcher;
 
 public interface DriverAssertable {
 
-    void thatPageSource(Matcher<String> matcher);
+    void pageSource(Matcher<String> matcher);
 
 
-    void thatCurrentUrl(Matcher<String> matcher);
+    void currentUrl(Matcher<String> matcher);
 
+
+    void title(Matcher<String> matcher);
 }
