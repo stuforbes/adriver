@@ -2,7 +2,6 @@ package uk.co.stfo.adriver.element.collection;
 
 import org.openqa.selenium.WebElement;
 
-import uk.co.stfo.adriver.assertion.CollectionAssertable;
 import uk.co.stfo.adriver.element.Element;
 
 import com.google.common.base.Predicate;
@@ -55,12 +54,4 @@ public interface ElementCollection {
      */
     void where(int expectedCount, Predicate<WebElement> predicate, ElementOperator elementOperator);
 
-
-    /**
-     * Make assertions on the collection.
-     * 
-     * @return An {@link CollectionAssertable} implementation relative to this
-     *         collection.
-     */
-    CollectionAssertable assertThat();
 }
