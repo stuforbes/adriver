@@ -3,6 +3,16 @@ package uk.co.stfo.adriver.probe;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
+/**
+ * Abstract implementation of {@link Probe} that performs no specific probe
+ * action, and is satisfied when the subclasses content() method returns content
+ * of type T that matches the defined {@link Matcher}.
+ * 
+ * @author sforbes
+ * 
+ * @param <T>
+ *            The type of the content that this probe examines.
+ */
 public abstract class MatcherProbe<T> implements Probe {
 
     private final Matcher<T> matcher;

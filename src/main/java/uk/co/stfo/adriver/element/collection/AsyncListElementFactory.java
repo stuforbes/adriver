@@ -8,6 +8,15 @@ import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
+/**
+ * Asynchronous implementation of {@link ElementFactory} that creates
+ * {@link AsyncElement} items. Similar to the single {@link Element} items, this
+ * one does not have to actually be present on the page at the time of
+ * declaration.
+ * 
+ * @author sforbes
+ * 
+ */
 public class AsyncListElementFactory implements ElementFactory {
 
     private final By by;

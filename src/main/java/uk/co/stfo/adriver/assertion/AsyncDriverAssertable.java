@@ -8,6 +8,14 @@ import org.slf4j.LoggerFactory;
 import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.probe.MatcherProbe;
 
+/**
+ * Asynchronous implementation of {@link DriverAssertable}. All assertion
+ * operations are performed through the {@link Poller}, by use of a
+ * {@link MatcherProbe}.
+ * 
+ * @author sforbes
+ * 
+ */
 public class AsyncDriverAssertable implements DriverAssertable {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncDriverAssertable.class);

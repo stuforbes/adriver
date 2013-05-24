@@ -23,6 +23,15 @@ import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.poll.UntilTimeElapsedPoller;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
+/**
+ * Asynchronous implementation of {@link Driver}. Class is constructed with a
+ * {@link WebDriver} which performs the underlying web operations, and a
+ * {@link Poller}, to requery {@link WebDriver} until elements are located,
+ * assertions met etc.
+ * 
+ * @author sforbes
+ * 
+ */
 public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncDriver.class);
@@ -31,6 +40,20 @@ public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
     private final Poller poller;
 
 
+    /**
+     * Creates an {@link AsyncDriver} implmentation, encasing the
+     * {@link WebDriver}, and creating a new {@link Poller}, using the timeout
+     * and pollFrequency parameters
+     * 
+     * @param webDriver
+     *            This {@link WebDriver} will be used to perform all actions,
+     *            element lookups etc
+     * @param timeout
+     *            How long should we poll for, before giving up
+     * @param pollFrequency
+     *            How long do we wait between polls
+     * @return A fully configured {@link AsyncDriver} implementation
+     */
     public static Driver createAsynDriver(final WebDriver webDriver, final long timeout, final long pollFrequency) {
         return new AsyncDriver(new UntilTimeElapsedPoller(timeout, pollFrequency), webDriver);
     }

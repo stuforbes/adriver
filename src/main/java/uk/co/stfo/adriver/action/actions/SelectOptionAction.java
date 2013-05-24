@@ -7,6 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.action.ElementAction;
 
+/**
+ * {@link ElementAction} implementation to select an option with the specified
+ * text on a {@link WebElement}
+ * 
+ * @author sforbes
+ * 
+ */
 public class SelectOptionAction implements ElementAction {
 
     private static final Logger LOG = LoggerFactory.getLogger(SelectOptionAction.class);

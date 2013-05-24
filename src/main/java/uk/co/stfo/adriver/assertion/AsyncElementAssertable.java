@@ -14,6 +14,14 @@ import uk.co.stfo.adriver.probe.HasAttributeProbe;
 import uk.co.stfo.adriver.probe.HasTextProbe;
 import uk.co.stfo.adriver.webdriver.WebElementLocator;
 
+/**
+ * Implementation of {@link ElementAssertable} that performs asynchronous
+ * assertions on an {@link Element}. That is, if the assertion fails, it is
+ * retried until it succeeds, or the elapsed time passes.
+ * 
+ * @author sforbes
+ * 
+ */
 public class AsyncElementAssertable implements ElementAssertable {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncElementAssertable.class);

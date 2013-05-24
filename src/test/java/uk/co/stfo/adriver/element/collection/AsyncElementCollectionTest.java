@@ -16,13 +16,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
-import uk.co.stfo.adriver.element.ElementOperator;
-import uk.co.stfo.adriver.element.collection.AsyncElementCollection;
-import uk.co.stfo.adriver.element.collection.ElementCollection;
-import uk.co.stfo.adriver.element.collection.ElementFactory;
+import uk.co.stfo.adriver.poll.DoOnceOnlyPoller;
 import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.webdriver.Traversable;
-import uk.co.stfo.adriver.poll.DoOnceOnlyPoller;
 
 import com.google.common.base.Predicate;
 

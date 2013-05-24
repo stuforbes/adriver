@@ -4,6 +4,14 @@ import org.hamcrest.StringDescription;
 
 import uk.co.stfo.adriver.probe.Probe;
 
+/**
+ * Abstract implementation of {@link Poller} that simply throws an
+ * {@link AssertionError} with an appropriate message if the probe is not
+ * satisfied
+ * 
+ * @author sforbes
+ * 
+ */
 public abstract class AbstractPoller implements Poller {
 
     @Override
@@ -15,6 +23,13 @@ public abstract class AbstractPoller implements Poller {
     }
 
 
+    /**
+     * Do a probe operation, returning the success status
+     * 
+     * @param probe
+     *            The item to probe
+     * @return true if the probe succeeds, otherwise false
+     */
     protected abstract boolean doPoll(Probe probe);
 
 

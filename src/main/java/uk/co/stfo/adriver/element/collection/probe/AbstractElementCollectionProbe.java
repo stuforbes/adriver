@@ -14,11 +14,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.element.Element;
-import uk.co.stfo.adriver.element.ElementOperator;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
+import uk.co.stfo.adriver.element.collection.ElementOperator;
 import uk.co.stfo.adriver.probe.Probe;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
+/**
+ * Abstract implementation of {@link Probe} to handle collection operations.
+ * Specifically, this probe will find all {@link WebElement}s in the page that
+ * match the {@link By} criteria, and determine if this is satisfactory. If so,
+ * each {@link WebElement} is checked by the subclass, and determined whether it
+ * needs to be operated on. If so, the position is converted to an
+ * {@link Element} using the {@link ElementFactory}, and the
+ * {@link ElementOperator} invoked
+ * 
+ * @author sforbes
+ * 
+ */
 public abstract class AbstractElementCollectionProbe implements Probe {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractElementCollectionProbe.class);
@@ -90,6 +102,13 @@ public abstract class AbstractElementCollectionProbe implements Probe {
     }
 
 
+    /**
+     * Check each {@link WebElement}. If it is to be operated on, convert it to
+     * an {@link Element} and invoke the {@link ElementOperator}
+     * 
+     * @param elements
+     *            The {@link WebElement}s that exist on the page
+     */
     protected void doElementOperation(final List<WebElement> elements) {
         for (int i = 0; i < elements.size(); i++) {
             if (isValidWebElement(i, elements.get(i))) {
@@ -107,15 +126,57 @@ public abstract class AbstractElementCollectionProbe implements Probe {
     }
 
 
+    /**
+     * Has the collection size reached a satisfactory level
+     * 
+     * @param size
+     *            The current size of the collection matching the criteria
+     * @return True if the size is satisfactory, otherwise false
+     */
     protected abstract boolean isSatisfied(int size);
 
 
+    /**
+     * Is it acceptable to operate on the {@link WebElement} in this position
+     * 
+     * @param position
+     *            The position of this {@link WebElement} in the collection
+     * @param element
+     *            The {@link WebElement} representation from the page
+     * @return True if this element should be operated on, false otherwise
+     */
     protected abstract boolean isValidWebElement(int position, WebElement element);
 
 
+    /**
+     * Add a suitable description of this collection probe to the
+     * {@link Description}
+     * 
+     * @param criteria
+     *            The {@link By} used to locate the items of this collection
+     * @param parent
+     *            The item to which this collection is relative
+     * @param collectionSize
+     *            The number of items located
+     * @param description
+     *            Where the description is reported to
+     */
     protected abstract void descriptionOf(By criteria, Traversable parent, int collectionSize, Description description);
 
 
+    /**
+     * Add a suitable description of the failure encountered by this collection
+     * probe to the {@link Description}
+     * 
+     * @param criteria
+     *            The {@link By} used to locate the items of this collection
+     * @param parent
+     *            The item to which this collection is relative
+     * @param collectionSize
+     *            The number of items located
+     * @param description
+     *            Where the description is reported to
+     */
     protected abstract void failureDescriptionOf(By criteria, Traversable parent, int collectionSize,
             Description description);
 

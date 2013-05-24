@@ -7,6 +7,13 @@ import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.webdriver.Traversable;
 
+/**
+ * Implementation of {@link Traversable} used to traverse through specific items
+ * in a collection.
+ * 
+ * @author sforbes
+ * 
+ */
 public class CollectionItemTraversable implements Traversable {
 
     private final int n;

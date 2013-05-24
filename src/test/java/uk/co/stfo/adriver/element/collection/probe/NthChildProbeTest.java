@@ -16,9 +16,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
-import uk.co.stfo.adriver.element.ElementOperator;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
-import uk.co.stfo.adriver.element.collection.probe.NthChildProbe;
+import uk.co.stfo.adriver.element.collection.ElementOperator;
 import uk.co.stfo.adriver.probe.Probe;
 import uk.co.stfo.adriver.webdriver.Traversable;
 

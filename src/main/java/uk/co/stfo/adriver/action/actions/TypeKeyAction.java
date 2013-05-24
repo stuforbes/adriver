@@ -7,6 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.action.ElementAction;
 
+/**
+ * {@link ElementAction} implementation to type a single {@link Keys} to a
+ * {@link WebElement}
+ * 
+ * @author sforbes
+ * 
+ */
 public class TypeKeyAction implements ElementAction {
 
     private static final Logger LOG = LoggerFactory.getLogger(TypeTextAction.class);

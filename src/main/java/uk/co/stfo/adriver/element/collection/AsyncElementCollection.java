@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.co.stfo.adriver.element.ElementOperator;
 import uk.co.stfo.adriver.element.collection.probe.EachChildProbe;
 import uk.co.stfo.adriver.element.collection.probe.NthChildProbe;
 import uk.co.stfo.adriver.element.collection.probe.WhereChildProbe;
@@ -16,6 +15,14 @@ import uk.co.stfo.adriver.webdriver.Traversable;
 
 import com.google.common.base.Predicate;
 
+/**
+ * Asynchronous implementation of {@link ElementCollection}. Operations are
+ * performed in {@link Probe}s, which are invoked through a {@link Poller}
+ * implementation
+ * 
+ * @author sforbes
+ * 
+ */
 public class AsyncElementCollection implements ElementCollection {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncElementCollection.class);

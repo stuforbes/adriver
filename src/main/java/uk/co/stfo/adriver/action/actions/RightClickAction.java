@@ -7,6 +7,12 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.action.ElementAction;
 
+/**
+ * {@link ElementAction} implementation to right-click on a {@link WebElement}
+ * 
+ * @author sforbes
+ * 
+ */
 public class RightClickAction implements ElementAction {
 
     private static final Logger LOG = LoggerFactory.getLogger(RightClickAction.class);

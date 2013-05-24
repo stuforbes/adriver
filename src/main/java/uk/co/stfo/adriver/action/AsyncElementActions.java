@@ -19,6 +19,13 @@ import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.probe.ElementActionProbe;
 import uk.co.stfo.adriver.webdriver.WebElementLocator;
 
+/**
+ * Asynchronous implementation of {@link ElementActions}. All actions are
+ * performed using a {@link ElementActionProbe}
+ * 
+ * @author sforbes
+ * 
+ */
 public class AsyncElementActions implements ElementActions {
 
     private static final Logger LOG = LoggerFactory.getLogger(AsyncElementActions.class);

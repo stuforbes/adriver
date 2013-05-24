@@ -10,6 +10,13 @@ import uk.co.stfo.adriver.webdriver.WebElementLocator;
 
 import com.google.common.base.Optional;
 
+/**
+ * Implementation of {@link Probe} that asserts that a {@link WebElement} is
+ * present on the page
+ * 
+ * @author sforbes
+ * 
+ */
 public class DoesExistProbe extends AbstractElementLocatingProbe {
 
     private static final Logger LOG = LoggerFactory.getLogger(DoesExistProbe.class);

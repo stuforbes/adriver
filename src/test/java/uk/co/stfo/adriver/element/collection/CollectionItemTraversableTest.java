@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import uk.co.stfo.adriver.element.collection.CollectionItemTraversable;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
 public class CollectionItemTraversableTest {

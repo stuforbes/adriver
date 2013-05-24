@@ -11,6 +11,13 @@ import uk.co.stfo.adriver.webdriver.WebElementLocator;
 
 import com.google.common.base.Optional;
 
+/**
+ * Implementation of {@link Probe} that performs an {@link ElementAction} on the
+ * {@link WebElement}, if it exists
+ * 
+ * @author sforbes
+ * 
+ */
 public class ElementActionProbe extends AbstractElementLocatingProbe {
 
     private static final Logger LOG = LoggerFactory.getLogger(ElementActionProbe.class);

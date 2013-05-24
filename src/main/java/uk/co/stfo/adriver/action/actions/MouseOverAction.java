@@ -7,6 +7,13 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.action.ElementAction;
 
+/**
+ * {@link ElementAction} implementation to move the mouse pointer over a
+ * {@link WebElement}
+ * 
+ * @author sforbes
+ * 
+ */
 public class MouseOverAction implements ElementAction {
 
     private static final Logger LOG = LoggerFactory.getLogger(TypeTextAction.class);

@@ -11,6 +11,14 @@ import uk.co.stfo.adriver.webdriver.WebElementLocator;
 
 import com.google.common.base.Optional;
 
+/**
+ * Implementation of {@link Probe} that asserts that a {@link WebElement} has an
+ * attribute of the specified name, and that the attribute value matches the
+ * defined {@link Matcher}
+ * 
+ * @author sforbes
+ * 
+ */
 public class HasAttributeProbe extends AbstractElementLocatingProbe {
 
     private static final Logger LOG = LoggerFactory.getLogger(HasAttributeProbe.class);

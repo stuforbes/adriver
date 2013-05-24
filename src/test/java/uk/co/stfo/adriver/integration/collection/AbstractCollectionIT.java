@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
-import uk.co.stfo.adriver.element.ElementOperator;
+import uk.co.stfo.adriver.element.collection.ElementOperator;
 import uk.co.stfo.adriver.integration.AbstractDriverIT;
 
 import com.google.common.base.Predicate;

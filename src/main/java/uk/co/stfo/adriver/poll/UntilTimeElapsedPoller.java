@@ -5,6 +5,14 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.probe.Probe;
 
+/**
+ * Implementation of {@link Poller} that repeatedly probes a {@link Probe},
+ * until either the {@link Probe} is satisfied, or the specified timeout is
+ * exceeded.
+ * 
+ * @author sforbes
+ * 
+ */
 public class UntilTimeElapsedPoller extends AbstractPoller {
 
     private static final Logger LOG = LoggerFactory.getLogger(UntilTimeElapsedPoller.class);

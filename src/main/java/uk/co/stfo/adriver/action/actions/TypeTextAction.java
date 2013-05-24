@@ -6,6 +6,12 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.action.ElementAction;
 
+/**
+ * {@link ElementAction} implementation to send text to a {@link WebElement}
+ * 
+ * @author sforbes
+ * 
+ */
 public class TypeTextAction implements ElementAction {
 
     private static final Logger LOG = LoggerFactory.getLogger(TypeTextAction.class);

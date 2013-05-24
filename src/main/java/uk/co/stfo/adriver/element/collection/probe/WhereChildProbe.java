@@ -6,13 +6,20 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.co.stfo.adriver.element.ElementOperator;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
+import uk.co.stfo.adriver.element.collection.ElementOperator;
 import uk.co.stfo.adriver.util.ByUtils;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
 import com.google.common.base.Predicate;
 
+/**
+ * Sub class of {@link AbstractElementCollectionProbe} to perform an operation
+ * on each item of a collection that conforms to the {@link Predicate}
+ * 
+ * @author sforbes
+ * 
+ */
 public class WhereChildProbe extends AbstractElementCollectionProbe {
 
     private static final Logger LOG = LoggerFactory.getLogger(WhereChildProbe.class);
