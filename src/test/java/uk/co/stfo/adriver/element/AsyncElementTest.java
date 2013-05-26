@@ -13,8 +13,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.action.ElementActionsFactory;
-import uk.co.stfo.adriver.element.AsyncElement;
-import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.AsyncElementCollection;
 import uk.co.stfo.adriver.element.collection.ElementCollection;
 import uk.co.stfo.adriver.poll.Poller;

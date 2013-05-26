@@ -5,7 +5,6 @@ import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.action.ElementAction;
-import uk.co.stfo.adriver.action.actions.TypeTextAction;
 
 public class TypeKeyActionTest extends AbstractActionTest {
 

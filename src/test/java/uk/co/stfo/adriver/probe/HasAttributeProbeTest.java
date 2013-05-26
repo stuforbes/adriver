@@ -14,8 +14,6 @@ import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
-import uk.co.stfo.adriver.probe.HasAttributeProbe;
-import uk.co.stfo.adriver.probe.Probe;
 
 public class HasAttributeProbeTest {
 

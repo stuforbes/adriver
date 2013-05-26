@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.action.ElementAction;
-import uk.co.stfo.adriver.action.actions.SelectOptionAction;
 
 public class SelectOptionActionText extends AbstractActionTest {
 

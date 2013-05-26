@@ -115,9 +115,14 @@ public abstract class AbstractElementCollectionProbe implements Probe {
                 LOG.debug("WebElement {} at position {} is applicable. About to do element operation", elements.get(i),
                         i);
                 final Element element = elementFactory.createForPositionInList(i, parent);
-                operator.doWith(element);
+                doWithElement(element, operator);
             }
         }
+    }
+
+
+    protected void doWithElement(final Element element, final ElementOperator operator) {
+        operator.doWith(element);
     }
 
 

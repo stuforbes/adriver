@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.action.ElementActions;
 import uk.co.stfo.adriver.action.ElementActionsFactory;
-import uk.co.stfo.adriver.assertion.AsyncElementAssertable;
-import uk.co.stfo.adriver.assertion.ElementAssertable;
+import uk.co.stfo.adriver.assertion.element.AsyncElementAssertable;
+import uk.co.stfo.adriver.assertion.element.ElementAssertable;
 import uk.co.stfo.adriver.element.collection.AsyncElementCollection;
 import uk.co.stfo.adriver.element.collection.AsyncListElementFactory;
 import uk.co.stfo.adriver.element.collection.ElementCollection;

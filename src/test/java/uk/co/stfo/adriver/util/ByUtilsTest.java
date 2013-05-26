@@ -6,8 +6,6 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-import uk.co.stfo.adriver.util.ByUtils;
-
 public class ByUtilsTest {
 
     @Test

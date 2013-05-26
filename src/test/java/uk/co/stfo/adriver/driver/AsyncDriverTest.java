@@ -14,7 +14,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import uk.co.stfo.adriver.driver.AsyncDriver;
 import uk.co.stfo.adriver.element.AsyncElement;
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.AsyncElementCollection;

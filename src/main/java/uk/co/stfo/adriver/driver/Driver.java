@@ -2,7 +2,7 @@ package uk.co.stfo.adriver.driver;
 
 import org.openqa.selenium.WebDriver;
 
-import uk.co.stfo.adriver.assertion.DriverAssertable;
+import uk.co.stfo.adriver.assertion.driver.DriverAssertable;
 import uk.co.stfo.adriver.element.ElementContainer;
 
 /**

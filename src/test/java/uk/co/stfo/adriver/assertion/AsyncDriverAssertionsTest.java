@@ -13,6 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
+import uk.co.stfo.adriver.assertion.driver.AsyncDriverAssertable;
+import uk.co.stfo.adriver.assertion.driver.DriverAssertable;
 import uk.co.stfo.adriver.poll.DoOnceOnlyPoller;
 import uk.co.stfo.adriver.poll.Poller;
 

@@ -6,7 +6,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.action.ElementAction;
-import uk.co.stfo.adriver.action.actions.TypeKeyAction;
 
 public class TypeTextActionTest extends AbstractActionTest {
 

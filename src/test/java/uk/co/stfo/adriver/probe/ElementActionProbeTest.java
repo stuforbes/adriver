@@ -13,8 +13,6 @@ import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.action.ElementAction;
-import uk.co.stfo.adriver.probe.ElementActionProbe;
-import uk.co.stfo.adriver.probe.Probe;
 import uk.co.stfo.adriver.webdriver.WebElementLocator;
 
 public class ElementActionProbeTest {

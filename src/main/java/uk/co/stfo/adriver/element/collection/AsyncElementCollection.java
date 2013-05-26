@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.co.stfo.adriver.assertion.collection.AsyncCollectionAssertable;
+import uk.co.stfo.adriver.assertion.collection.CollectionAssertable;
 import uk.co.stfo.adriver.element.collection.probe.EachChildProbe;
 import uk.co.stfo.adriver.element.collection.probe.NthChildProbe;
 import uk.co.stfo.adriver.element.collection.probe.WhereChildProbe;
@@ -62,6 +64,12 @@ public class AsyncElementCollection implements ElementCollection {
         LOG.debug("Handling {} children of parent {} with criteria {} where predicate {} is applicable", new Object[] {
                 expectedCount, parent, by, predicate });
         doProbe(new WhereChildProbe(by, parent, expectedCount, predicate, operator, elementFactory));
+    }
+
+
+    @Override
+    public CollectionAssertable assertThat() {
+        return new AsyncCollectionAssertable(by, parent, poller, elementFactory);
     }
 
 

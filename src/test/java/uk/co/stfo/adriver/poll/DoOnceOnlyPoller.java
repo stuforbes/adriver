@@ -1,6 +1,5 @@
 package uk.co.stfo.adriver.poll;
 
-import uk.co.stfo.adriver.poll.AbstractPoller;
 import uk.co.stfo.adriver.probe.Probe;
 
 public class DoOnceOnlyPoller extends AbstractPoller {

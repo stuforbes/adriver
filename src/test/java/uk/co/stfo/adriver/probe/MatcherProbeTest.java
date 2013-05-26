@@ -9,9 +9,6 @@ import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
 import org.junit.Test;
 
-import uk.co.stfo.adriver.probe.MatcherProbe;
-import uk.co.stfo.adriver.probe.Probe;
-
 public class MatcherProbeTest {
 
     @Test
