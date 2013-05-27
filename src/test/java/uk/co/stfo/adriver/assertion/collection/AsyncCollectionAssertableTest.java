@@ -155,6 +155,178 @@ public class AsyncCollectionAssertableTest {
     }
 
 
+    @SuppressWarnings("unchecked")
+    @Test
+    public void atLeastOnePassesIfAllElementsAreValid() {
+        final Matcher<String> textMatcher = context.mock(Matcher.class);
+
+        context.checking(new Expectations() {
+            {
+                prepareParent(webElement1, webElement2, webElement3);
+                prepareElementFactory(element1, element2, element3);
+
+                prepareElement(webElement1, element1, false);
+                prepareElement(webElement2, element2, false);
+                prepareElement(webElement3, element3, false);
+
+                prepareText(webElement1, "some text 1", textMatcher, true);
+                prepareText(webElement2, "some text 2", textMatcher, true);
+                prepareText(webElement3, "some text 3", textMatcher, true);
+            }
+        });
+
+        assertable.atLeastOne().hasText(textMatcher);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void atLeastOnePassesIfOneElementIsValid() {
+        final Matcher<WebElement> webElementMatcher = context.mock(Matcher.class);
+
+        context.checking(new Expectations() {
+            {
+                prepareParent(webElement1, webElement2, webElement3);
+                prepareElementFactory(element1, element2, element3);
+
+                prepareElement(webElement1, element1, true);
+                prepareElement(webElement2, element2, true);
+                prepareElement(webElement3, element3, false);
+
+                prepareWebElement(webElement1, webElementMatcher, false);
+                prepareWebElement(webElement2, webElementMatcher, false);
+                prepareWebElement(webElement3, webElementMatcher, true);
+            }
+        });
+
+        assertable.atLeastOne().matches(webElementMatcher);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void atLeastOneFailsIfAllElementsAreInvalid() {
+        final Matcher<String> valueMatcher = context.mock(Matcher.class);
+
+        context.checking(new Expectations() {
+            {
+                prepareParent(webElement1, webElement2, webElement3);
+                prepareElementFactory(element1, element2, element3);
+
+                prepareElement(webElement1, element1, false);
+                prepareElement(webElement2, element2, false);
+                prepareElement(webElement3, element3, false);
+
+                prepareAttribute(webElement1, "attribute-value1", valueMatcher, true);
+                prepareAttribute(webElement2, "attribute-value2", valueMatcher, true);
+                prepareAttribute(webElement3, "attribute-value3", valueMatcher, true);
+            }
+        });
+
+        try {
+            assertable.atLeastOne().hasAttribute("attribute-name", valueMatcher);
+            fail("Expecting an AssertionError to be thrown");
+        } catch (final AssertionError ex) {
+            assertThat(
+                    ex.getMessage(),
+                    containsString("All children of parent traversable, matching criteria by className=a-class, that Has attribute attribute-name that "));
+            assertThat(ex.getMessage(), containsString("The following elements were not valid: \n\t\n\t\n\t"));
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void nonePassesIfAllElementsAreInvalid() {
+        final Matcher<WebElement> webElementMatcher = context.mock(Matcher.class);
+
+        context.checking(new Expectations() {
+            {
+                prepareParent(webElement1, webElement2, webElement3);
+                prepareElementFactory(element1, element2, element3);
+
+                prepareElement(webElement1, element1, true);
+                prepareElement(webElement2, element2, true);
+                prepareElement(webElement3, element3, true);
+
+                prepareWebElement(webElement1, webElementMatcher, false);
+                prepareWebElement(webElement2, webElementMatcher, false);
+                prepareWebElement(webElement3, webElementMatcher, false);
+            }
+        });
+
+        assertable.none().matches(webElementMatcher);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void noneFailsIfAllElementsAreValid() {
+        final Matcher<String> valueMatcher = context.mock(Matcher.class);
+
+        context.checking(new Expectations() {
+            {
+                prepareParent(webElement1, webElement2, webElement3);
+                prepareElementFactory(element1, element2, element3);
+
+                prepareElement(webElement1, element1, false);
+                prepareElement(webElement2, element2, false);
+                prepareElement(webElement3, element3, false);
+
+                prepareAttribute(webElement1, "attribute-value-1", valueMatcher, true);
+                prepareAttribute(webElement2, "attribute-value-1", valueMatcher, true);
+                prepareAttribute(webElement3, "attribute-value-1", valueMatcher, true);
+
+                oneOf(valueMatcher).describeTo(with(any(Description.class)));
+            }
+        });
+
+        try {
+            assertable.none().hasAttribute("an-attribute", valueMatcher);
+            fail("Expecting an AssertionError to be thrown");
+        } catch (final AssertionError ex) {
+            assertThat(
+                    ex.getMessage(),
+                    containsString("No children of parent traversable, matching criteria by className=a-class, that Has an attribute an-attribute that "));
+            assertThat(ex.getMessage(), containsString("The following elements were not valid: \n\t\n\t\n\t"));
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void noneFailsIfASingleElementFails() {
+        final Matcher<String> textMatcher = context.mock(Matcher.class);
+
+        context.checking(new Expectations() {
+            {
+                prepareParent(webElement1, webElement2, webElement3);
+                prepareElementFactory(element1, element2, element3);
+
+                prepareElement(webElement1, element1, false);
+                prepareElement(webElement2, element2, false);
+                prepareElement(webElement3, element3, true);
+
+                prepareText(webElement1, "text-value1", textMatcher, true);
+                prepareText(webElement2, "text-value2", textMatcher, true);
+                prepareText(webElement3, "text-value3", textMatcher, false);
+
+                oneOf(textMatcher).describeTo(with(any(Description.class)));
+            }
+        });
+
+        try {
+            assertable.all().hasText(textMatcher);
+            fail("Expecting an AssertionError to be thrown");
+        } catch (final AssertionError ex) {
+            assertThat(
+                    ex.getMessage(),
+                    containsString("All children of parent traversable, matching criteria by className=a-class, that Has text that "));
+            assertThat(ex.getMessage(), containsString("The following elements were not valid: \n\t"));
+        }
+    }
+
+
     private void prepareParent(final WebElement... webElements) {
         context.checking(new Expectations() {
             {

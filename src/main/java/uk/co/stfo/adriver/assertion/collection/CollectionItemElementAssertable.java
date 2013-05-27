@@ -14,6 +14,13 @@ import uk.co.stfo.adriver.element.collection.probe.ElementToProbeCreator;
 import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
+/**
+ * Implementation of {@link BaseElementAssertable} specifically for handling
+ * assertions on collections of elements
+ * 
+ * @author sforbes
+ * 
+ */
 public class CollectionItemElementAssertable implements BaseElementAssertable {
 
     private final Poller poller;

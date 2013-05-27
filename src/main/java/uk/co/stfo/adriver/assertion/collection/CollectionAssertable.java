@@ -13,8 +13,8 @@ import uk.co.stfo.adriver.element.collection.ElementCollection;
 public interface CollectionAssertable {
 
     /**
-     * Provide an {@link ElementAssertable} implementation that ensures that all
-     * elements of the collection meet this assertion
+     * Provide an {@link BaseElementAssertable} implementation that ensures that
+     * all elements of the collection meet this assertion
      * 
      * @return implementation of {@link ElementAssertable}
      */
@@ -22,8 +22,8 @@ public interface CollectionAssertable {
 
 
     /**
-     * Provide an {@link ElementAssertable} implementation that ensures that at
-     * least one (but potentially more) elements of the collection meet this
+     * Provide an {@link BaseElementAssertable} implementation that ensures that
+     * at least one (but potentially more) elements of the collection meet this
      * assertion
      * 
      * @return implementation of {@link ElementAssertable}
@@ -32,8 +32,8 @@ public interface CollectionAssertable {
 
 
     /**
-     * Provide an {@link ElementAssertable} implementation that ensures that no
-     * elements of the collection meet this assertion
+     * Provide an {@link BaseElementAssertable} implementation that ensures that
+     * no elements of the collection meet this assertion
      * 
      * @return implementation of {@link ElementAssertable}
      */

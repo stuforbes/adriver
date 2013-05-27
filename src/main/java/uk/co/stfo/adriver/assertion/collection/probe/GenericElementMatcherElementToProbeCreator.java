@@ -9,6 +9,13 @@ import uk.co.stfo.adriver.element.collection.probe.ElementToProbeCreator;
 import uk.co.stfo.adriver.probe.GenericElementMatcherProbe;
 import uk.co.stfo.adriver.probe.Probe;
 
+/**
+ * Implementation of {@link ElementToProbeCreator} that creates a
+ * {@link GenericElementMatcherProbe}
+ * 
+ * @author sforbes
+ * 
+ */
 public class GenericElementMatcherElementToProbeCreator implements ElementToProbeCreator {
 
     private final Matcher<WebElement> elementMatcher;

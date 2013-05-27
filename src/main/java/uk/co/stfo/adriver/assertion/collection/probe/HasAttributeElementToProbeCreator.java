@@ -8,6 +8,13 @@ import uk.co.stfo.adriver.element.collection.probe.ElementToProbeCreator;
 import uk.co.stfo.adriver.probe.HasAttributeProbe;
 import uk.co.stfo.adriver.probe.Probe;
 
+/**
+ * Implementation of {@link ElementToProbeCreator} that creates a
+ * {@link HasAttributeProbe}
+ * 
+ * @author sforbes
+ * 
+ */
 public class HasAttributeElementToProbeCreator implements ElementToProbeCreator {
 
     private final String attributeName;

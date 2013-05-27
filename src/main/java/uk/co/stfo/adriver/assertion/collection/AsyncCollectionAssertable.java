@@ -39,15 +39,13 @@ public class AsyncCollectionAssertable implements CollectionAssertable {
 
     @Override
     public BaseElementAssertable atLeastOne() {
-        // TODO Auto-generated method stub
-        return null;
+        return new CollectionItemElementAssertable(by, parent, poller, elementFactory);
     }
 
 
     @Override
     public BaseElementAssertable none() {
-        // TODO Auto-generated method stub
-        return null;
+        return new CollectionItemElementAssertable(by, parent, poller, elementFactory);
     }
 
 }

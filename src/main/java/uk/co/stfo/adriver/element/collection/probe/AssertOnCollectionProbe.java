@@ -17,6 +17,17 @@ import uk.co.stfo.adriver.probe.Probe;
 import uk.co.stfo.adriver.util.ByUtils;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
+/**
+ * Locates all elements identified by the {@link Traversable} parent, and
+ * {@link By} criteria, and probes them, using the probe that is created by a
+ * {@link ElementToProbeCreator}.
+ * 
+ * Successes and failures are counted up, and depending on the ResultStrategy,
+ * the probes satisfaction is determined.
+ * 
+ * @author sforbes
+ * 
+ */
 public class AssertOnCollectionProbe implements Probe {
 
     private static final Logger LOG = LoggerFactory.getLogger(AssertOnCollectionProbe.class);

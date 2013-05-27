@@ -1,7 +1,7 @@
 package uk.co.stfo.adriver.integration.collection.assertion;
 
 
-public class StaticCollectionAssertionIT extends AbstractAllCollectionAssertionIT {
+public class DynamicAllCollectionAssertionIT extends AbstractAllCollectionAssertionIT {
 
     @Override
     protected String filename() {
@@ -11,18 +11,18 @@ public class StaticCollectionAssertionIT extends AbstractAllCollectionAssertionI
 
     @Override
     protected String folder() {
-        return "static";
+        return "dynamic";
     }
 
 
     @Override
     protected long timeout() {
-        return 50;
+        return 1600;
     }
 
 
     @Override
     protected long pollFreq() {
-        return 10;
+        return 100;
     }
 }

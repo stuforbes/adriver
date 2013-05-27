@@ -8,6 +8,13 @@ import uk.co.stfo.adriver.element.collection.probe.ElementToProbeCreator;
 import uk.co.stfo.adriver.probe.HasTextProbe;
 import uk.co.stfo.adriver.probe.Probe;
 
+/**
+ * Implementation of {@link ElementToProbeCreator} that creates a
+ * {@link HasTextProbe}
+ * 
+ * @author sforbes
+ * 
+ */
 public class HasTextElementToProbeCreator implements ElementToProbeCreator {
 
     private final Matcher<String> textMatcher;
