@@ -1,5 +1,6 @@
 package uk.co.stfo.adriver.integration.collection.assertion;
 
+
 public class StaticNoneCollectionAssertionIT extends AbstractNoneCollectionAssertionIT {
 
     @Override

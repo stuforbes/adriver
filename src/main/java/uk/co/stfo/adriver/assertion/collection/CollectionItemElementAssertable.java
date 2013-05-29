@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import uk.co.stfo.adriver.assertion.collection.probe.GenericElementMatcherElementToProbeCreator;
 import uk.co.stfo.adriver.assertion.collection.probe.HasAttributeElementToProbeCreator;
 import uk.co.stfo.adriver.assertion.collection.probe.HasTextElementToProbeCreator;
+import uk.co.stfo.adriver.assertion.collection.result.ResultStrategy;
 import uk.co.stfo.adriver.assertion.element.BaseElementAssertable;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
 import uk.co.stfo.adriver.element.collection.probe.AssertOnCollectionProbe;
@@ -27,14 +28,18 @@ public class CollectionItemElementAssertable implements BaseElementAssertable {
     private final Traversable parent;
     private final By by;
     private final ElementFactory elementFactory;
+    private final ResultStrategy resultStrategy;
+    private final int expectedCollectionSize;
 
 
-    public CollectionItemElementAssertable(final By by, final Traversable parent, final Poller poller,
-            final ElementFactory elementFactory) {
+    public CollectionItemElementAssertable(final int expectedCollectionSize, final By by, final Traversable parent,
+            final Poller poller, final ElementFactory elementFactory, final ResultStrategy resultStrategy) {
+        this.expectedCollectionSize = expectedCollectionSize;
         this.by = by;
         this.parent = parent;
         this.poller = poller;
         this.elementFactory = elementFactory;
+        this.resultStrategy = resultStrategy;
     }
 
 
@@ -63,6 +68,7 @@ public class CollectionItemElementAssertable implements BaseElementAssertable {
 
 
     private void doPollWith(final ElementToProbeCreator probeCreator) {
-        poller.doProbe(new AssertOnCollectionProbe(by, parent, probeCreator, elementFactory));
+        poller.doProbe(new AssertOnCollectionProbe(expectedCollectionSize, by, parent, probeCreator, elementFactory,
+                resultStrategy));
     }
 }

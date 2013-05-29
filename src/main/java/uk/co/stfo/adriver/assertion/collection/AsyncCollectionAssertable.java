@@ -2,6 +2,10 @@ package uk.co.stfo.adriver.assertion.collection;
 
 import org.openqa.selenium.By;
 
+import uk.co.stfo.adriver.assertion.collection.result.AllResultStrategy;
+import uk.co.stfo.adriver.assertion.collection.result.AtLeastOneResultStrategy;
+import uk.co.stfo.adriver.assertion.collection.result.NoneResultStrategy;
+import uk.co.stfo.adriver.assertion.collection.result.ResultStrategy;
 import uk.co.stfo.adriver.assertion.element.BaseElementAssertable;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
 import uk.co.stfo.adriver.poll.Poller;
@@ -32,20 +36,26 @@ public class AsyncCollectionAssertable implements CollectionAssertable {
 
 
     @Override
-    public BaseElementAssertable all() {
-        return new CollectionItemElementAssertable(by, parent, poller, elementFactory);
+    public BaseElementAssertable allOf(final int expectedCollectionSize) {
+        return createWithResultType(expectedCollectionSize, new AllResultStrategy());
     }
 
 
     @Override
-    public BaseElementAssertable atLeastOne() {
-        return new CollectionItemElementAssertable(by, parent, poller, elementFactory);
+    public BaseElementAssertable atLeastOneOf(final int expectedCollectionSize) {
+        return createWithResultType(expectedCollectionSize, new AtLeastOneResultStrategy());
     }
 
 
     @Override
-    public BaseElementAssertable none() {
-        return new CollectionItemElementAssertable(by, parent, poller, elementFactory);
+    public BaseElementAssertable noneOf(final int expectedCollectionSize) {
+        return createWithResultType(expectedCollectionSize, new NoneResultStrategy());
     }
 
+
+    public BaseElementAssertable createWithResultType(final int expectedCollectionSize,
+            final ResultStrategy resultStrategy) {
+        return new CollectionItemElementAssertable(expectedCollectionSize, by, parent, poller, elementFactory,
+                resultStrategy);
+    }
 }

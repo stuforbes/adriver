@@ -16,9 +16,11 @@ public interface CollectionAssertable {
      * Provide an {@link BaseElementAssertable} implementation that ensures that
      * all elements of the collection meet this assertion
      * 
+     * @param expectedCollectionSize
+     *            The expected number of elements to be located
      * @return implementation of {@link ElementAssertable}
      */
-    BaseElementAssertable all();
+    BaseElementAssertable allOf(int expectedCollectionSize);
 
 
     /**
@@ -26,16 +28,20 @@ public interface CollectionAssertable {
      * at least one (but potentially more) elements of the collection meet this
      * assertion
      * 
+     * @param expectedCollectionSize
+     *            The expected number of elements to be located
      * @return implementation of {@link ElementAssertable}
      */
-    BaseElementAssertable atLeastOne();
+    BaseElementAssertable atLeastOneOf(int expectedCollectionSize);
 
 
     /**
      * Provide an {@link BaseElementAssertable} implementation that ensures that
      * no elements of the collection meet this assertion
      * 
+     * @param expectedCollectionSize
+     *            The expected number of elements to be located
      * @return implementation of {@link ElementAssertable}
      */
-    BaseElementAssertable none();
+    BaseElementAssertable noneOf(int expectedCollectionSize);
 }

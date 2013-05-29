@@ -5,7 +5,11 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
@@ -15,6 +19,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import uk.co.stfo.adriver.assertion.collection.result.ResultStrategy;
+import uk.co.stfo.adriver.assertion.collection.result.ResultTally;
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
 import uk.co.stfo.adriver.probe.Probe;
@@ -29,6 +35,7 @@ public class AssertOnCollectionProbeTest {
     private Traversable parent;
     private ElementToProbeCreator probeCreator;
     private ElementFactory elementFactory;
+    private ResultStrategy resultStrategy;
 
     private WebElement webElement1;
     private WebElement webElement2;
@@ -57,7 +64,9 @@ public class AssertOnCollectionProbeTest {
         this.element2 = context.mock(Element.class, "element2");
         this.element3 = context.mock(Element.class, "element3");
 
-        this.probe = new AssertOnCollectionProbe(by, parent, probeCreator, elementFactory);
+        this.resultStrategy = context.mock(ResultStrategy.class);
+
+        this.probe = new AssertOnCollectionProbe(3, by, parent, probeCreator, elementFactory, resultStrategy);
     }
 
 
@@ -67,6 +76,35 @@ public class AssertOnCollectionProbeTest {
             {
                 oneOf(parent).locateAllWith(by);
                 will(returnValue(Collections.emptyList()));
+            }
+        });
+
+        probe.doProbe();
+        assertThat(probe.isSatisfied(), is(false));
+    }
+
+
+    @Test
+    public void isSatisfiedFailsIfProbingFindsTooFewElements() {
+        context.checking(new Expectations() {
+            {
+                oneOf(parent).locateAllWith(by);
+                will(returnValue(Arrays.asList(webElement1, webElement2)));
+            }
+        });
+
+        probe.doProbe();
+        assertThat(probe.isSatisfied(), is(false));
+    }
+
+
+    @Test
+    public void isSatisfiedFailsIfProbingFindsTooManyElements() {
+        context.checking(new Expectations() {
+            {
+                oneOf(parent).locateAllWith(by);
+                will(returnValue(Arrays.asList(webElement1, webElement2, webElement3,
+                        context.mock(WebElement.class, "webElement4"))));
             }
         });
 
@@ -93,6 +131,9 @@ public class AssertOnCollectionProbeTest {
                 will(returnValue(elementProbe2));
                 oneOf(probeCreator).createFor(element3);
                 will(returnValue(elementProbe3));
+
+                oneOf(resultStrategy).isSuccess(with(aResultOf(3, 0)));
+                will(returnValue(true));
             }
         });
 
@@ -118,6 +159,9 @@ public class AssertOnCollectionProbeTest {
                 will(returnValue(elementProbe2));
                 oneOf(probeCreator).createFor(element3);
                 will(returnValue(elementProbe3));
+
+                oneOf(resultStrategy).isSuccess(with(aResultOf(0, 3)));
+                will(returnValue(false));
             }
         });
 
@@ -143,6 +187,9 @@ public class AssertOnCollectionProbeTest {
                 will(returnValue(elementProbe2));
                 oneOf(probeCreator).createFor(element3);
                 will(returnValue(elementProbe3));
+
+                oneOf(resultStrategy).isSuccess(with(aResultOf(2, 1)));
+                will(returnValue(false));
             }
         });
 
@@ -159,6 +206,9 @@ public class AssertOnCollectionProbeTest {
         context.checking(new Expectations() {
             {
                 oneOf(probeCreator).describeTo(description);
+
+                oneOf(resultStrategy).descriptionPrefix();
+                will(returnValue("All children"));
             }
         });
 
@@ -168,6 +218,7 @@ public class AssertOnCollectionProbeTest {
     }
 
 
+    @SuppressWarnings("unchecked")
     @Test
     public void describeFailureToDescribesTheFailureIncludingFailedElements() {
         final Probe elementProbe1 = createElementProbe(1, true);
@@ -188,16 +239,13 @@ public class AssertOnCollectionProbeTest {
                 oneOf(probeCreator).createFor(element3);
                 will(returnValue(elementProbe3));
 
-                oneOf(element2).describeTo(description);
-                oneOf(element3).describeTo(description);
+                oneOf(resultStrategy).reportFailureTo(with(any(List.class)), with(any(List.class)), with(description));
             }
         });
 
         probe.doProbe();
 
         probe.describeFailureTo(description);
-
-        assertThat(description.toString(), is("The following elements were not valid: \n\t\n\t"));
     }
 
 
@@ -233,5 +281,27 @@ public class AssertOnCollectionProbeTest {
             }
         });
         return probe;
+    }
+
+
+    private Matcher<ResultTally> aResultOf(final int successes, final int failures) {
+        return new BaseMatcher<ResultTally>() {
+
+            @Override
+            public boolean matches(final Object item) {
+                final ResultTally tally = (ResultTally) item;
+                return tally.successes() == successes && tally.failures() == failures;
+            }
+
+
+            @Override
+            public void describeTo(final Description description) {
+                description.appendText("A result tally of ");
+                description.appendText(Integer.toString(successes));
+                description.appendText(" successes, and ");
+                description.appendText(Integer.toString(failures));
+                description.appendText(" failures.");
+            }
+        };
     }
 }

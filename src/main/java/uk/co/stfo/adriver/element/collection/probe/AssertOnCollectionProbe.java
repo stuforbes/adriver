@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.assertion.collection.ProbeElementOperator;
+import uk.co.stfo.adriver.assertion.collection.result.ResultStrategy;
+import uk.co.stfo.adriver.assertion.collection.result.ResultTally;
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
 import uk.co.stfo.adriver.probe.Probe;
@@ -41,12 +43,19 @@ public class AssertOnCollectionProbe implements Probe {
 
     private final ElementToProbeCreator probeCreator;
 
+    private final ResultStrategy resultStrategy;
 
-    public AssertOnCollectionProbe(final By by, final Traversable parent, final ElementToProbeCreator probeCreator,
-            final ElementFactory elementFactory) {
+    private final int collectionSize;
+
+
+    public AssertOnCollectionProbe(final int collectionSize, final By by, final Traversable parent,
+            final ElementToProbeCreator probeCreator, final ElementFactory elementFactory,
+            final ResultStrategy resultStrategy) {
+        this.collectionSize = collectionSize;
         this.by = by;
         this.parent = parent;
         this.probeCreator = probeCreator;
+        this.resultStrategy = resultStrategy;
         this.elementOperator = new ProbeElementOperator(probeCreator);
         this.elementFactory = elementFactory;
         this.results = new CollectionAssertionResult();
@@ -58,22 +67,27 @@ public class AssertOnCollectionProbe implements Probe {
         LOG.debug("About to do probe");
         final List<WebElement> allElements = parent.locateAllWith(by);
 
-        LOG.debug("Found {} elements", allElements.size());
         results.reset();
+        if (allElements.size() == collectionSize) {
+            LOG.debug("Found {} elements, which is the expected collection size", allElements.size());
 
-        doIteration(allElements);
+            doIteration(allElements);
+        } else {
+            LOG.debug("Expected {} elements, but found {}. Aborting probe execution for this iteration");
+        }
     }
 
 
     @Override
     public boolean isSatisfied() {
-        return results.successCount() > 0 && results.failureCount() == 0;
+        return results.resultSize() > 0 && resultStrategy.isSuccess(results);
     }
 
 
     @Override
     public void describeTo(final Description description) {
-        description.appendText("All children of parent ");
+        description.appendText(resultStrategy.descriptionPrefix());
+        description.appendText(" of parent ");
         description.appendText(parent.toString());
         description.appendText(", matching criteria ");
         description.appendText(ByUtils.asString(by));
@@ -84,11 +98,7 @@ public class AssertOnCollectionProbe implements Probe {
 
     @Override
     public void describeFailureTo(final Description description) {
-        description.appendText("The following elements were not valid: ");
-        for (final Element element : results.failureElements()) {
-            description.appendText("\n\t");
-            description.appendDescriptionOf(element);
-        }
+        resultStrategy.reportFailureTo(results.successElements(), results.failureElements(), description);
     }
 
 
@@ -105,13 +115,14 @@ public class AssertOnCollectionProbe implements Probe {
         }
     }
 
-    private static final class CollectionAssertionResult {
-        private int successCount;
+    private static final class CollectionAssertionResult implements ResultTally {
 
+        private final List<Element> successElements;
         private final List<Element> failureElements;
 
 
         public CollectionAssertionResult() {
+            this.successElements = new ArrayList<Element>();
             this.failureElements = new ArrayList<Element>();
             reset();
         }
@@ -119,20 +130,32 @@ public class AssertOnCollectionProbe implements Probe {
 
         public void updateScore(final boolean result, final Element element) {
             if (result) {
-                this.successCount++;
+                this.successElements.add(element);
             } else {
                 this.failureElements.add(element);
             }
         }
 
 
-        public int successCount() {
-            return successCount;
+        @Override
+        public int successes() {
+            return successElements.size();
         }
 
 
-        public int failureCount() {
+        @Override
+        public int failures() {
             return failureElements.size();
+        }
+
+
+        public int resultSize() {
+            return successes() + failures();
+        }
+
+
+        public List<Element> successElements() {
+            return Collections.unmodifiableList(successElements);
         }
 
 
@@ -142,14 +165,14 @@ public class AssertOnCollectionProbe implements Probe {
 
 
         public void reset() {
-            this.successCount = 0;
+            this.successElements.clear();
             this.failureElements.clear();
         }
 
 
         @Override
         public String toString() {
-            return "Successes: " + successCount + "; Failures: " + failureElements.size();
+            return "Successes: " + successElements.size() + "; Failures: " + failureElements.size();
         }
     }
 }

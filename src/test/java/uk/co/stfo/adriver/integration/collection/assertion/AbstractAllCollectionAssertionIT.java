@@ -21,7 +21,7 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
     public void allHasAttributePassesIfAllElementsAreValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().all().hasAttribute("class", is("list-item"));
+        list.children(By.tagName("li")).assertThat().allOf(3).hasAttribute("class", is("list-item"));
     }
 
 
@@ -30,7 +30,7 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.xpath("//li/div")).assertThat().all().hasAttribute("class", is("item-2"));
+            list.children(By.xpath("//li/div")).assertThat().allOf(3).hasAttribute("class", is("item-2"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -47,7 +47,7 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
     public void allHasTextPassesIfAllElementsAreValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().all().hasText(startsWith("This is item"));
+        list.children(By.tagName("li")).assertThat().allOf(3).hasText(startsWith("This is item"));
     }
 
 
@@ -56,7 +56,7 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().all().hasText(is("This is item 1"));
+            list.children(By.tagName("li")).assertThat().allOf(3).hasText(is("This is item 1"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -73,7 +73,7 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
     public void allMatchesIfAllElementsAreValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().all().matches(new BaseMatcher<WebElement>() {
+        list.children(By.tagName("li")).assertThat().allOf(3).matches(new BaseMatcher<WebElement>() {
 
             @Override
             public boolean matches(final Object item) {
@@ -94,7 +94,7 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().all().matches(new BaseMatcher<WebElement>() {
+            list.children(By.tagName("li")).assertThat().allOf(3).matches(new BaseMatcher<WebElement>() {
                 @Override
                 public boolean matches(final Object item) {
                     final String text = ((WebElement) item).getText();

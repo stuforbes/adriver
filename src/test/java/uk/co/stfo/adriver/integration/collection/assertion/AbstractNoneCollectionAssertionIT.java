@@ -21,7 +21,7 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
     public void noneHasAttributePassesIfAllElementsAreInvalid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().none().hasAttribute("class", is("not-present-list-item"));
+        list.children(By.tagName("li")).assertThat().noneOf(3).hasAttribute("class", is("not-present-list-item"));
     }
 
 
@@ -30,15 +30,15 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.xpath("//li/div")).assertThat().none().hasAttribute("class", is("item-3"));
+            list.children(By.xpath("//li/div")).assertThat().noneOf(3).hasAttribute("class", is("item-3"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
                     ex.getMessage(),
-                    containsString("Was expecting:\n    No child of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Has an attribute class that is \"item-3\""));
+                    containsString("Was expecting:\n    No children of parent Driver -> By.tagName: ul, matching criteria by xpath=//li/div, that Has an attribute class that is \"item-3\""));
             assertThat(
                     ex.getMessage(),
-                    containsString("but:\n    The following elements were not valid: \n\tAn element located by tagName=li"));
+                    containsString("but:\n    The following elements were valid: \n\tAn element located by xpath=//li/div"));
         }
     }
 
@@ -48,15 +48,15 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().none().hasAttribute("class", is("list-item"));
+            list.children(By.tagName("li")).assertThat().noneOf(3).hasAttribute("class", is("list-item"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
                     ex.getMessage(),
-                    containsString("Was expecting:\n     No child of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Has an attribute class that is \"list-item\""));
+                    containsString("Was expecting:\n    No children of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Has an attribute class that is \"list-item\""));
             assertThat(
                     ex.getMessage(),
-                    containsString("but:\n    The following elements were not valid: \n\tAn element located by tagName=li\n\tAn element located by tagName=li\n\tAn element located by tagName=li"));
+                    containsString("but:\n    The following elements were valid: \n\tAn element located by tagName=li\n\tAn element located by tagName=li\n\tAn element located by tagName=li"));
         }
     }
 
@@ -65,24 +65,23 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
     public void noneHasTextPassesIfAllElementsAreInvalid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().none().hasText(startsWith("This text is not present"));
+        list.children(By.tagName("li")).assertThat().noneOf(3).hasText(startsWith("This text is not present"));
     }
 
 
     @Test
-    public void atLeastOneHasTextFailsIfOneElementIsValid() {
+    public void noneHasTextFailsIfOneElementIsValid() {
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().atLeastOne().hasText(startsWith("This is item 1"));
+            list.children(By.tagName("li")).assertThat().noneOf(3).hasText(startsWith("This is item 1"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
                     ex.getMessage(),
-                    containsString("Was expecting:\n    No child of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Has text that is \"This is item 1\""));
-            assertThat(
-                    ex.getMessage(),
-                    containsString("but:\n    The following elements were not valid: \n\tAn element located by tagName=li"));
+                    containsString("Was expecting:\n    No children of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Has text that a string starting with \"This is item 1\""));
+            assertThat(ex.getMessage(),
+                    containsString("but:\n    The following elements were valid: \n\tAn element located by tagName=li"));
         }
     }
 
@@ -92,15 +91,15 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().atLeastOne().hasText(startsWith("This is item"));
+            list.children(By.tagName("li")).assertThat().noneOf(3).hasText(startsWith("This is item"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
                     ex.getMessage(),
-                    containsString("Was expecting:\n    No child of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Has text that starts with \"This is item\""));
+                    containsString("Was expecting:\n    No children of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Has text that a string starting with \"This is item\""));
             assertThat(
                     ex.getMessage(),
-                    containsString("but:\n    The following elements were not valid: \n\tAn element located by tagName=li\n\tAn element located by tagName=li\n\tAn element located by tagName=li"));
+                    containsString("but:\n    The following elements were valid: \n\tAn element located by tagName=li\n\tAn element located by tagName=li\n\tAn element located by tagName=li"));
         }
     }
 
@@ -109,7 +108,7 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
     public void noneMatchesIfAllElementsAreInvalid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().none().matches(new BaseMatcher<WebElement>() {
+        list.children(By.tagName("li")).assertThat().noneOf(3).matches(new BaseMatcher<WebElement>() {
 
             @Override
             public boolean matches(final Object item) {
@@ -129,7 +128,7 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
     public void noneFailsIfOneElementIsValid() {
         final Element list = driver.child(By.tagName("ul"));
         try {
-            list.children(By.tagName("li")).assertThat().atLeastOne().matches(new BaseMatcher<WebElement>() {
+            list.children(By.tagName("li")).assertThat().noneOf(3).matches(new BaseMatcher<WebElement>() {
 
                 @Override
                 public boolean matches(final Object item) {
@@ -146,10 +145,9 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         } catch (final AssertionError ex) {
             assertThat(
                     ex.getMessage(),
-                    containsString("Was expecting:\n    No child of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Matches A text matcher"));
-            assertThat(
-                    ex.getMessage(),
-                    containsString("but:\n    The following elements were not valid: \n\tAn element located by tagName=li"));
+                    containsString("Was expecting:\n    No children of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Matches A text matcher"));
+            assertThat(ex.getMessage(),
+                    containsString("but:\n    The following elements were valid: \n\tAn element located by tagName=li"));
         }
     }
 
@@ -159,7 +157,7 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().atLeastOne().matches(new BaseMatcher<WebElement>() {
+            list.children(By.tagName("li")).assertThat().noneOf(3).matches(new BaseMatcher<WebElement>() {
                 @Override
                 public boolean matches(final Object item) {
                     return ((WebElement) item).getText().startsWith("This is item");
@@ -175,10 +173,10 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         } catch (final AssertionError ex) {
             assertThat(
                     ex.getMessage(),
-                    containsString("Was expecting:\n    No child of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Matches A text matcher"));
+                    containsString("Was expecting:\n    No children of parent Driver -> By.tagName: ul, matching criteria by tagName=li, that Matches A text matcher"));
             assertThat(
                     ex.getMessage(),
-                    containsString("but:\n    The following elements were not valid: \n\tAn element located by tagName=li\n\tAn element located by tagName=li\n\tAn element located by tagName=li"));
+                    containsString("but:\n    The following elements were valid: \n\tAn element located by tagName=li\n\tAn element located by tagName=li\n\tAn element located by tagName=li"));
         }
     }
 }

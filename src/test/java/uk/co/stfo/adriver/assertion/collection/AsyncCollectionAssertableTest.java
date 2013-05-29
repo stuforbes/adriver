@@ -83,7 +83,7 @@ public class AsyncCollectionAssertableTest {
             }
         });
 
-        assertable.all().hasAttribute("attribute-name", valueMatcher);
+        assertable.allOf(3).hasAttribute("attribute-name", valueMatcher);
     }
 
 
@@ -110,7 +110,7 @@ public class AsyncCollectionAssertableTest {
         });
 
         try {
-            assertable.all().hasText(textMatcher);
+            assertable.allOf(3).hasText(textMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -144,7 +144,7 @@ public class AsyncCollectionAssertableTest {
         });
 
         try {
-            assertable.all().matches(webElementMatcher);
+            assertable.allOf(3).matches(webElementMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -175,7 +175,7 @@ public class AsyncCollectionAssertableTest {
             }
         });
 
-        assertable.atLeastOne().hasText(textMatcher);
+        assertable.atLeastOneOf(3).hasText(textMatcher);
     }
 
 
@@ -189,8 +189,8 @@ public class AsyncCollectionAssertableTest {
                 prepareParent(webElement1, webElement2, webElement3);
                 prepareElementFactory(element1, element2, element3);
 
-                prepareElement(webElement1, element1, true);
-                prepareElement(webElement2, element2, true);
+                prepareElement(webElement1, element1, false);
+                prepareElement(webElement2, element2, false);
                 prepareElement(webElement3, element3, false);
 
                 prepareWebElement(webElement1, webElementMatcher, false);
@@ -199,7 +199,7 @@ public class AsyncCollectionAssertableTest {
             }
         });
 
-        assertable.atLeastOne().matches(webElementMatcher);
+        assertable.atLeastOneOf(3).matches(webElementMatcher);
     }
 
 
@@ -213,23 +213,25 @@ public class AsyncCollectionAssertableTest {
                 prepareParent(webElement1, webElement2, webElement3);
                 prepareElementFactory(element1, element2, element3);
 
-                prepareElement(webElement1, element1, false);
-                prepareElement(webElement2, element2, false);
-                prepareElement(webElement3, element3, false);
+                prepareElement(webElement1, element1, true);
+                prepareElement(webElement2, element2, true);
+                prepareElement(webElement3, element3, true);
 
-                prepareAttribute(webElement1, "attribute-value1", valueMatcher, true);
-                prepareAttribute(webElement2, "attribute-value2", valueMatcher, true);
-                prepareAttribute(webElement3, "attribute-value3", valueMatcher, true);
+                prepareAttribute(webElement1, "attribute-value1", valueMatcher, false);
+                prepareAttribute(webElement2, "attribute-value2", valueMatcher, false);
+                prepareAttribute(webElement3, "attribute-value3", valueMatcher, false);
+
+                oneOf(valueMatcher).describeTo(with(any(Description.class)));
             }
         });
 
         try {
-            assertable.atLeastOne().hasAttribute("attribute-name", valueMatcher);
+            assertable.atLeastOneOf(3).hasAttribute("attribute-name", valueMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
                     ex.getMessage(),
-                    containsString("All children of parent traversable, matching criteria by className=a-class, that Has attribute attribute-name that "));
+                    containsString("At least one child of parent traversable, matching criteria by className=a-class, that Has an attribute attribute-name that "));
             assertThat(ex.getMessage(), containsString("The following elements were not valid: \n\t\n\t\n\t"));
         }
     }
@@ -245,9 +247,9 @@ public class AsyncCollectionAssertableTest {
                 prepareParent(webElement1, webElement2, webElement3);
                 prepareElementFactory(element1, element2, element3);
 
-                prepareElement(webElement1, element1, true);
-                prepareElement(webElement2, element2, true);
-                prepareElement(webElement3, element3, true);
+                prepareElement(webElement1, element1, false);
+                prepareElement(webElement2, element2, false);
+                prepareElement(webElement3, element3, false);
 
                 prepareWebElement(webElement1, webElementMatcher, false);
                 prepareWebElement(webElement2, webElementMatcher, false);
@@ -255,7 +257,7 @@ public class AsyncCollectionAssertableTest {
             }
         });
 
-        assertable.none().matches(webElementMatcher);
+        assertable.noneOf(3).matches(webElementMatcher);
     }
 
 
@@ -269,9 +271,9 @@ public class AsyncCollectionAssertableTest {
                 prepareParent(webElement1, webElement2, webElement3);
                 prepareElementFactory(element1, element2, element3);
 
-                prepareElement(webElement1, element1, false);
-                prepareElement(webElement2, element2, false);
-                prepareElement(webElement3, element3, false);
+                prepareElement(webElement1, element1, true);
+                prepareElement(webElement2, element2, true);
+                prepareElement(webElement3, element3, true);
 
                 prepareAttribute(webElement1, "attribute-value-1", valueMatcher, true);
                 prepareAttribute(webElement2, "attribute-value-1", valueMatcher, true);
@@ -282,13 +284,13 @@ public class AsyncCollectionAssertableTest {
         });
 
         try {
-            assertable.none().hasAttribute("an-attribute", valueMatcher);
+            assertable.noneOf(3).hasAttribute("attribute-name", valueMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
                     ex.getMessage(),
-                    containsString("No children of parent traversable, matching criteria by className=a-class, that Has an attribute an-attribute that "));
-            assertThat(ex.getMessage(), containsString("The following elements were not valid: \n\t\n\t\n\t"));
+                    containsString("No children of parent traversable, matching criteria by className=a-class, that Has an attribute attribute-name that "));
+            assertThat(ex.getMessage(), containsString("The following elements were valid: \n\t\n\t\n\t"));
         }
     }
 
@@ -316,7 +318,7 @@ public class AsyncCollectionAssertableTest {
         });
 
         try {
-            assertable.all().hasText(textMatcher);
+            assertable.allOf(3).hasText(textMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
