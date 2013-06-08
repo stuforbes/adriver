@@ -1,5 +1,7 @@
 package uk.co.stfo.adriver.driver;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -98,6 +100,12 @@ public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
 
 
     @Override
+    public void closeSession() {
+        webDriver.manage().deleteAllCookies();
+    }
+
+
+    @Override
     public void close() {
         webDriver.close();
     }
@@ -119,6 +127,17 @@ public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
     @Override
     public List<WebElement> locateAllWith(final By by) {
         return webDriver.findElements(by);
+    }
+
+
+    @Override
+    public void dumpSourceTo(final Writer writer) throws IOException {
+        try {
+            writer.write(webDriver.getPageSource());
+        } finally {
+            writer.flush();
+            writer.close();
+        }
     }
 
 

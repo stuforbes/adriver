@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
+import uk.co.stfo.adriver.element.collection.size.CollectionSizes;
 import uk.co.stfo.adriver.integration.AbstractDriverIT;
 
 public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT {
@@ -21,7 +22,8 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
     public void noneHasAttributePassesIfAllElementsAreInvalid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().noneOf(3).hasAttribute("class", is("not-present-list-item"));
+        list.children(By.tagName("li")).assertThat().noneOf(CollectionSizes.equalTo(3))
+                .hasAttribute("class", is("not-present-list-item"));
     }
 
 
@@ -30,7 +32,8 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.xpath("//li/div")).assertThat().noneOf(3).hasAttribute("class", is("item-3"));
+            list.children(By.xpath("//li/div")).assertThat().noneOf(CollectionSizes.equalTo(3))
+                    .hasAttribute("class", is("item-3"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -48,7 +51,8 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().noneOf(3).hasAttribute("class", is("list-item"));
+            list.children(By.tagName("li")).assertThat().noneOf(CollectionSizes.equalTo(3))
+                    .hasAttribute("class", is("list-item"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -65,7 +69,8 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
     public void noneHasTextPassesIfAllElementsAreInvalid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().noneOf(3).hasText(startsWith("This text is not present"));
+        list.children(By.tagName("li")).assertThat().noneOf(CollectionSizes.equalTo(3))
+                .hasText(startsWith("This text is not present"));
     }
 
 
@@ -74,7 +79,8 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().noneOf(3).hasText(startsWith("This is item 1"));
+            list.children(By.tagName("li")).assertThat().noneOf(CollectionSizes.equalTo(3))
+                    .hasText(startsWith("This is item 1"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -91,7 +97,8 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().noneOf(3).hasText(startsWith("This is item"));
+            list.children(By.tagName("li")).assertThat().noneOf(CollectionSizes.equalTo(3))
+                    .hasText(startsWith("This is item"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -108,19 +115,20 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
     public void noneMatchesIfAllElementsAreInvalid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().noneOf(3).matches(new BaseMatcher<WebElement>() {
+        list.children(By.tagName("li")).assertThat().noneOf(CollectionSizes.equalTo(3))
+                .matches(new BaseMatcher<WebElement>() {
 
-            @Override
-            public boolean matches(final Object item) {
-                return ((WebElement) item).getText().startsWith("This text is not present");
-            }
+                    @Override
+                    public boolean matches(final Object item) {
+                        return ((WebElement) item).getText().startsWith("This text is not present");
+                    }
 
 
-            @Override
-            public void describeTo(final Description description) {
-                description.appendText("A text matcher");
-            }
-        });
+                    @Override
+                    public void describeTo(final Description description) {
+                        description.appendText("A text matcher");
+                    }
+                });
     }
 
 
@@ -128,19 +136,20 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
     public void noneFailsIfOneElementIsValid() {
         final Element list = driver.child(By.tagName("ul"));
         try {
-            list.children(By.tagName("li")).assertThat().noneOf(3).matches(new BaseMatcher<WebElement>() {
+            list.children(By.tagName("li")).assertThat().noneOf(CollectionSizes.equalTo(3))
+                    .matches(new BaseMatcher<WebElement>() {
 
-                @Override
-                public boolean matches(final Object item) {
-                    return ((WebElement) item).getText().startsWith("This is item 2");
-                }
+                        @Override
+                        public boolean matches(final Object item) {
+                            return ((WebElement) item).getText().startsWith("This is item 2");
+                        }
 
 
-                @Override
-                public void describeTo(final Description description) {
-                    description.appendText("A text matcher");
-                }
-            });
+                        @Override
+                        public void describeTo(final Description description) {
+                            description.appendText("A text matcher");
+                        }
+                    });
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -157,18 +166,19 @@ public abstract class AbstractNoneCollectionAssertionIT extends AbstractDriverIT
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().noneOf(3).matches(new BaseMatcher<WebElement>() {
-                @Override
-                public boolean matches(final Object item) {
-                    return ((WebElement) item).getText().startsWith("This is item");
-                }
+            list.children(By.tagName("li")).assertThat().noneOf(CollectionSizes.equalTo(3))
+                    .matches(new BaseMatcher<WebElement>() {
+                        @Override
+                        public boolean matches(final Object item) {
+                            return ((WebElement) item).getText().startsWith("This is item");
+                        }
 
 
-                @Override
-                public void describeTo(final Description description) {
-                    description.appendText("A text matcher");
-                }
-            });
+                        @Override
+                        public void describeTo(final Description description) {
+                            description.appendText("A text matcher");
+                        }
+                    });
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(

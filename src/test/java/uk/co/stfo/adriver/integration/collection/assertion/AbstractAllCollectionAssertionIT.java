@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
+import uk.co.stfo.adriver.element.collection.size.CollectionSizes;
 import uk.co.stfo.adriver.integration.AbstractDriverIT;
 
 public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT {
@@ -21,7 +22,8 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
     public void allHasAttributePassesIfAllElementsAreValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().allOf(3).hasAttribute("class", is("list-item"));
+        list.children(By.tagName("li")).assertThat().allOf(CollectionSizes.equalTo(3))
+                .hasAttribute("class", is("list-item"));
     }
 
 
@@ -30,7 +32,8 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.xpath("//li/div")).assertThat().allOf(3).hasAttribute("class", is("item-2"));
+            list.children(By.xpath("//li/div")).assertThat().allOf(CollectionSizes.equalTo(3))
+                    .hasAttribute("class", is("item-2"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -47,7 +50,8 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
     public void allHasTextPassesIfAllElementsAreValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().allOf(3).hasText(startsWith("This is item"));
+        list.children(By.tagName("li")).assertThat().allOf(CollectionSizes.equalTo(3))
+                .hasText(startsWith("This is item"));
     }
 
 
@@ -56,7 +60,8 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().allOf(3).hasText(is("This is item 1"));
+            list.children(By.tagName("li")).assertThat().allOf(CollectionSizes.equalTo(3))
+                    .hasText(is("This is item 1"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -73,19 +78,20 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
     public void allMatchesIfAllElementsAreValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().allOf(3).matches(new BaseMatcher<WebElement>() {
+        list.children(By.tagName("li")).assertThat().allOf(CollectionSizes.equalTo(3))
+                .matches(new BaseMatcher<WebElement>() {
 
-            @Override
-            public boolean matches(final Object item) {
-                return ((WebElement) item).getText().startsWith("This is item");
-            }
+                    @Override
+                    public boolean matches(final Object item) {
+                        return ((WebElement) item).getText().startsWith("This is item");
+                    }
 
 
-            @Override
-            public void describeTo(final Description description) {
-                description.appendText("A text matcher");
-            }
-        });
+                    @Override
+                    public void describeTo(final Description description) {
+                        description.appendText("A text matcher");
+                    }
+                });
     }
 
 
@@ -94,19 +100,20 @@ public abstract class AbstractAllCollectionAssertionIT extends AbstractDriverIT 
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().allOf(3).matches(new BaseMatcher<WebElement>() {
-                @Override
-                public boolean matches(final Object item) {
-                    final String text = ((WebElement) item).getText();
-                    return "This is item 1".equals(text) || "This is item 2".equals(text);
-                }
+            list.children(By.tagName("li")).assertThat().allOf(CollectionSizes.equalTo(3))
+                    .matches(new BaseMatcher<WebElement>() {
+                        @Override
+                        public boolean matches(final Object item) {
+                            final String text = ((WebElement) item).getText();
+                            return "This is item 1".equals(text) || "This is item 2".equals(text);
+                        }
 
 
-                @Override
-                public void describeTo(final Description description) {
-                    description.appendText("A text matcher");
-                }
-            });
+                        @Override
+                        public void describeTo(final Description description) {
+                            description.appendText("A text matcher");
+                        }
+                    });
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(

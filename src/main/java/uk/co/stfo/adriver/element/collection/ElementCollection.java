@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.assertion.collection.CollectionAssertable;
 import uk.co.stfo.adriver.element.Element;
+import uk.co.stfo.adriver.element.collection.size.CollectionSize;
 
 import com.google.common.base.Predicate;
 
@@ -20,12 +21,13 @@ public interface ElementCollection {
      * Perform the {@link ElementOperator} on each element of the collection,
      * once the expected count has been reached
      * 
-     * @param expectedCount
-     *            The expected number of {@link Element}s to be found
+     * @param collectionSize
+     *            The strategy for determining if a satisfactory number of
+     *            elements are available
      * @param operator
      *            The operation to be performed on each {@link Element}
      */
-    void each(int expectedCount, ElementOperator operator);
+    void each(CollectionSize collectionSize, ElementOperator operator);
 
 
     /**
@@ -45,15 +47,16 @@ public interface ElementCollection {
      * Perform the {@link ElementOperator} on each element of the collection
      * that conform to the predicate, once the expected count has been reached
      * 
-     * @param expectedCount
-     *            The expected number of {@link Element}s to be found
+     * @param collectionSize
+     *            The strategy for determining if a satisfactory number of
+     *            elements are available
      * @param predicate
      *            Whether to apply the {@link ElementOperator}, based on
      *            characteristics of the underlying {@link WebElement}
      * @param operator
      *            The operation to be performed on each {@link Element}
      */
-    void where(int expectedCount, Predicate<WebElement> predicate, ElementOperator elementOperator);
+    void where(CollectionSize collectionSize, Predicate<WebElement> predicate, ElementOperator elementOperator);
 
 
     /**

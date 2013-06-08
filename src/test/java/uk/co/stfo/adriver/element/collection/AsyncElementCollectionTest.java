@@ -16,6 +16,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
+import uk.co.stfo.adriver.element.collection.size.CollectionSizes;
 import uk.co.stfo.adriver.poll.DoOnceOnlyPoller;
 import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.webdriver.Traversable;
@@ -62,7 +63,7 @@ public class AsyncElementCollectionTest {
         });
 
         try {
-            elementCollection.each(3, context.mock(ElementOperator.class));
+            elementCollection.each(CollectionSizes.equalTo(3), context.mock(ElementOperator.class));
             fail("Expected an " + AssertionError.class.getName() + " to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -88,7 +89,7 @@ public class AsyncElementCollectionTest {
         });
 
         try {
-            elementCollection.each(2, context.mock(ElementOperator.class));
+            elementCollection.each(CollectionSizes.equalTo(2), context.mock(ElementOperator.class));
             fail("Expected an " + AssertionError.class.getName() + " to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -132,7 +133,7 @@ public class AsyncElementCollectionTest {
             }
         });
 
-        elementCollection.each(3, operator);
+        elementCollection.each(CollectionSizes.equalTo(3), operator);
     }
 
 
@@ -205,7 +206,8 @@ public class AsyncElementCollectionTest {
         });
 
         try {
-            elementCollection.where(3, context.mock(Predicate.class), context.mock(ElementOperator.class));
+            elementCollection.where(CollectionSizes.equalTo(3), context.mock(Predicate.class),
+                    context.mock(ElementOperator.class));
             fail("Expected an " + AssertionError.class.getName() + " to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -254,6 +256,6 @@ public class AsyncElementCollectionTest {
             }
         });
 
-        elementCollection.where(3, predicate, operator);
+        elementCollection.where(CollectionSizes.equalTo(3), predicate, operator);
     }
 }

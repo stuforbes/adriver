@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
+import uk.co.stfo.adriver.element.collection.size.CollectionSizes;
 import uk.co.stfo.adriver.integration.AbstractDriverIT;
 
 public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDriverIT {
@@ -20,7 +21,8 @@ public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDr
     public void atLeastOneHasAttributePassesIfAllElementsAreValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().atLeastOneOf(3).hasAttribute("class", is("list-item"));
+        list.children(By.tagName("li")).assertThat().atLeastOneOf(CollectionSizes.equalTo(3))
+                .hasAttribute("class", is("list-item"));
     }
 
 
@@ -28,7 +30,8 @@ public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDr
     public void atLeastOneHasAttributePassesIfOneElementIsValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.xpath("//li/div")).assertThat().atLeastOneOf(3).hasAttribute("class", is("item-3"));
+        list.children(By.xpath("//li/div")).assertThat().atLeastOneOf(CollectionSizes.equalTo(3))
+                .hasAttribute("class", is("item-3"));
     }
 
 
@@ -37,7 +40,8 @@ public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDr
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().atLeastOneOf(3).hasAttribute("class", is("invalid-class"));
+            list.children(By.tagName("li")).assertThat().atLeastOneOf(CollectionSizes.equalTo(3))
+                    .hasAttribute("class", is("invalid-class"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -54,7 +58,8 @@ public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDr
     public void atLeastOneHasTextPassesIfAllElementsAreValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().atLeastOneOf(3).hasText(startsWith("This is item"));
+        list.children(By.tagName("li")).assertThat().atLeastOneOf(CollectionSizes.equalTo(3))
+                .hasText(startsWith("This is item"));
     }
 
 
@@ -62,7 +67,8 @@ public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDr
     public void atLeastOneHasTextPassesIfOneElementIsValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().atLeastOneOf(3).hasText(startsWith("This is item 1"));
+        list.children(By.tagName("li")).assertThat().atLeastOneOf(CollectionSizes.equalTo(3))
+                .hasText(startsWith("This is item 1"));
     }
 
 
@@ -71,7 +77,8 @@ public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDr
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().atLeastOneOf(3).hasText(is("This text is not present"));
+            list.children(By.tagName("li")).assertThat().atLeastOneOf(CollectionSizes.equalTo(3))
+                    .hasText(is("This text is not present"));
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -88,19 +95,20 @@ public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDr
     public void atLeastOneMatchesIfAllElementsAreValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().atLeastOneOf(3).matches(new BaseMatcher<WebElement>() {
+        list.children(By.tagName("li")).assertThat().atLeastOneOf(CollectionSizes.equalTo(3))
+                .matches(new BaseMatcher<WebElement>() {
 
-            @Override
-            public boolean matches(final Object item) {
-                return ((WebElement) item).getText().startsWith("This is item");
-            }
+                    @Override
+                    public boolean matches(final Object item) {
+                        return ((WebElement) item).getText().startsWith("This is item");
+                    }
 
 
-            @Override
-            public void describeTo(final Description description) {
-                description.appendText("A text matcher");
-            }
-        });
+                    @Override
+                    public void describeTo(final Description description) {
+                        description.appendText("A text matcher");
+                    }
+                });
     }
 
 
@@ -108,19 +116,20 @@ public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDr
     public void atLeastOneMatchesIfOneElementIsValid() {
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("li")).assertThat().atLeastOneOf(3).matches(new BaseMatcher<WebElement>() {
+        list.children(By.tagName("li")).assertThat().atLeastOneOf(CollectionSizes.equalTo(3))
+                .matches(new BaseMatcher<WebElement>() {
 
-            @Override
-            public boolean matches(final Object item) {
-                return ((WebElement) item).getText().startsWith("This is item 2");
-            }
+                    @Override
+                    public boolean matches(final Object item) {
+                        return ((WebElement) item).getText().startsWith("This is item 2");
+                    }
 
 
-            @Override
-            public void describeTo(final Description description) {
-                description.appendText("A text matcher");
-            }
-        });
+                    @Override
+                    public void describeTo(final Description description) {
+                        description.appendText("A text matcher");
+                    }
+                });
     }
 
 
@@ -129,18 +138,19 @@ public abstract class AbstractAtLeastOneCollectionAssertionIT extends AbstractDr
         final Element list = driver.child(By.tagName("ul"));
 
         try {
-            list.children(By.tagName("li")).assertThat().atLeastOneOf(3).matches(new BaseMatcher<WebElement>() {
-                @Override
-                public boolean matches(final Object item) {
-                    return ((WebElement) item).getText().startsWith("This text is not present");
-                }
+            list.children(By.tagName("li")).assertThat().atLeastOneOf(CollectionSizes.equalTo(3))
+                    .matches(new BaseMatcher<WebElement>() {
+                        @Override
+                        public boolean matches(final Object item) {
+                            return ((WebElement) item).getText().startsWith("This text is not present");
+                        }
 
 
-                @Override
-                public void describeTo(final Description description) {
-                    description.appendText("A text matcher");
-                }
-            });
+                        @Override
+                        public void describeTo(final Description description) {
+                            description.appendText("A text matcher");
+                        }
+                    });
             fail("An AssertionError should have been thrown");
         } catch (final AssertionError ex) {
             assertThat(

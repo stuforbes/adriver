@@ -18,6 +18,7 @@ import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
+import uk.co.stfo.adriver.element.collection.size.CollectionSizes;
 import uk.co.stfo.adriver.poll.DoOnceOnlyPoller;
 import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.webdriver.Traversable;
@@ -83,7 +84,7 @@ public class AsyncCollectionAssertableTest {
             }
         });
 
-        assertable.allOf(3).hasAttribute("attribute-name", valueMatcher);
+        assertable.allOf(CollectionSizes.equalTo(3)).hasAttribute("attribute-name", valueMatcher);
     }
 
 
@@ -110,7 +111,7 @@ public class AsyncCollectionAssertableTest {
         });
 
         try {
-            assertable.allOf(3).hasText(textMatcher);
+            assertable.allOf(CollectionSizes.equalTo(3)).hasText(textMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -144,7 +145,7 @@ public class AsyncCollectionAssertableTest {
         });
 
         try {
-            assertable.allOf(3).matches(webElementMatcher);
+            assertable.allOf(CollectionSizes.equalTo(3)).matches(webElementMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -175,7 +176,7 @@ public class AsyncCollectionAssertableTest {
             }
         });
 
-        assertable.atLeastOneOf(3).hasText(textMatcher);
+        assertable.atLeastOneOf(CollectionSizes.equalTo(3)).hasText(textMatcher);
     }
 
 
@@ -199,7 +200,7 @@ public class AsyncCollectionAssertableTest {
             }
         });
 
-        assertable.atLeastOneOf(3).matches(webElementMatcher);
+        assertable.atLeastOneOf(CollectionSizes.equalTo(3)).matches(webElementMatcher);
     }
 
 
@@ -226,7 +227,7 @@ public class AsyncCollectionAssertableTest {
         });
 
         try {
-            assertable.atLeastOneOf(3).hasAttribute("attribute-name", valueMatcher);
+            assertable.atLeastOneOf(CollectionSizes.equalTo(3)).hasAttribute("attribute-name", valueMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -257,7 +258,7 @@ public class AsyncCollectionAssertableTest {
             }
         });
 
-        assertable.noneOf(3).matches(webElementMatcher);
+        assertable.noneOf(CollectionSizes.equalTo(3)).matches(webElementMatcher);
     }
 
 
@@ -284,7 +285,7 @@ public class AsyncCollectionAssertableTest {
         });
 
         try {
-            assertable.noneOf(3).hasAttribute("attribute-name", valueMatcher);
+            assertable.noneOf(CollectionSizes.equalTo(3)).hasAttribute("attribute-name", valueMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(
@@ -318,7 +319,7 @@ public class AsyncCollectionAssertableTest {
         });
 
         try {
-            assertable.allOf(3).hasText(textMatcher);
+            assertable.allOf(CollectionSizes.equalTo(3)).hasText(textMatcher);
             fail("Expecting an AssertionError to be thrown");
         } catch (final AssertionError ex) {
             assertThat(

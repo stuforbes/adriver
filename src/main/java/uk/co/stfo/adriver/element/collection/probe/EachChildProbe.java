@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.element.collection.ElementFactory;
 import uk.co.stfo.adriver.element.collection.ElementOperator;
+import uk.co.stfo.adriver.element.collection.size.CollectionSize;
 import uk.co.stfo.adriver.util.ByUtils;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
@@ -22,20 +23,20 @@ public class EachChildProbe extends AbstractElementCollectionProbe {
 
     private static final Logger LOG = LoggerFactory.getLogger(EachChildProbe.class);
 
-    private final int expectedCount;
+    private final CollectionSize collectionSize;
 
 
-    public EachChildProbe(final By by, final Traversable parent, final int expectedCount,
+    public EachChildProbe(final By by, final Traversable parent, final CollectionSize collectionSize,
             final ElementOperator operator, final ElementFactory elementFactory) {
         super(by, parent, operator, elementFactory);
-        this.expectedCount = expectedCount;
+        this.collectionSize = collectionSize;
     }
 
 
     @Override
     protected boolean isSatisfied(final int size) {
-        LOG.debug("Checking if size {} == expectedCount {}", size, expectedCount);
-        return size == expectedCount;
+        LOG.debug("Checking if size {} {}", size, collectionSize);
+        return collectionSize.isSatisfied(size);
     }
 
 
@@ -56,15 +57,15 @@ public class EachChildProbe extends AbstractElementCollectionProbe {
 
 
     @Override
-    protected void failureDescriptionOf(final By criteria, final Traversable parent, final int collectionSize,
+    protected void failureDescriptionOf(final By criteria, final Traversable parent, final int size,
             final Description description) {
         description.appendText("Expected ");
-        description.appendText(Integer.toString(expectedCount));
+        description.appendDescriptionOf(collectionSize);
         description.appendText(" elements under element ");
         description.appendText(parent.toString());
         description.appendText(" with criteria ");
         description.appendText(ByUtils.asString(criteria));
         description.appendText(", but instead found ");
-        description.appendText(Integer.toString(collectionSize));
+        description.appendText(Integer.toString(size));
     }
 }

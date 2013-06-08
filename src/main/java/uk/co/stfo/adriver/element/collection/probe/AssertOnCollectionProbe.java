@@ -15,6 +15,7 @@ import uk.co.stfo.adriver.assertion.collection.result.ResultStrategy;
 import uk.co.stfo.adriver.assertion.collection.result.ResultTally;
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
+import uk.co.stfo.adriver.element.collection.size.CollectionSize;
 import uk.co.stfo.adriver.probe.Probe;
 import uk.co.stfo.adriver.util.ByUtils;
 import uk.co.stfo.adriver.webdriver.Traversable;
@@ -45,10 +46,10 @@ public class AssertOnCollectionProbe implements Probe {
 
     private final ResultStrategy resultStrategy;
 
-    private final int collectionSize;
+    private final CollectionSize collectionSize;
 
 
-    public AssertOnCollectionProbe(final int collectionSize, final By by, final Traversable parent,
+    public AssertOnCollectionProbe(final CollectionSize collectionSize, final By by, final Traversable parent,
             final ElementToProbeCreator probeCreator, final ElementFactory elementFactory,
             final ResultStrategy resultStrategy) {
         this.collectionSize = collectionSize;
@@ -68,7 +69,7 @@ public class AssertOnCollectionProbe implements Probe {
         final List<WebElement> allElements = parent.locateAllWith(by);
 
         results.reset();
-        if (allElements.size() == collectionSize) {
+        if (collectionSize.isSatisfied(allElements.size())) {
             LOG.debug("Found {} elements, which is the expected collection size", allElements.size());
 
             doIteration(allElements);

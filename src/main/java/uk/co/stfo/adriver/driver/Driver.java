@@ -1,5 +1,8 @@
 package uk.co.stfo.adriver.driver;
 
+import java.io.IOException;
+import java.io.Writer;
+
 import org.openqa.selenium.WebDriver;
 
 import uk.co.stfo.adriver.assertion.driver.DriverAssertable;
@@ -40,6 +43,12 @@ public interface Driver extends ElementContainer {
 
 
     /**
+     * Clears the session data
+     */
+    void closeSession();
+
+
+    /**
      * Close the current window. In the {@link AsyncDriver} implementation, this
      * performs a close operation on the underlying {@link WebDriver}
      */
@@ -51,4 +60,13 @@ public interface Driver extends ElementContainer {
      * performs a quit operation on the underlying {@link WebDriver}
      */
     void quit();
+
+
+    /**
+     * Print the page source to the specified {@link Writer}
+     * 
+     * @param writer
+     *            Where to print the page source
+     */
+    void dumpSourceTo(Writer writer) throws IOException;
 }

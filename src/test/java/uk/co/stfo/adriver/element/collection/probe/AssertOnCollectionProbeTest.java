@@ -23,6 +23,7 @@ import uk.co.stfo.adriver.assertion.collection.result.ResultStrategy;
 import uk.co.stfo.adriver.assertion.collection.result.ResultTally;
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
+import uk.co.stfo.adriver.element.collection.size.CollectionSizes;
 import uk.co.stfo.adriver.probe.Probe;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
@@ -66,7 +67,8 @@ public class AssertOnCollectionProbeTest {
 
         this.resultStrategy = context.mock(ResultStrategy.class);
 
-        this.probe = new AssertOnCollectionProbe(3, by, parent, probeCreator, elementFactory, resultStrategy);
+        this.probe = new AssertOnCollectionProbe(CollectionSizes.equalTo(3), by, parent, probeCreator, elementFactory,
+                resultStrategy);
     }
 
 

@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.ElementOperator;
+import uk.co.stfo.adriver.element.collection.size.CollectionSizes;
 import uk.co.stfo.adriver.integration.AbstractDriverIT;
 
 import com.google.common.base.Predicate;
@@ -24,7 +25,7 @@ public abstract class AbstractCollectionIT extends AbstractDriverIT {
 
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("input")).each(3, new ElementOperator() {
+        list.children(By.tagName("input")).each(CollectionSizes.equalTo(3), new ElementOperator() {
             @Override
             public void doWith(final Element element) {
                 element.perform().click();
@@ -64,12 +65,13 @@ public abstract class AbstractCollectionIT extends AbstractDriverIT {
 
         final Element list = driver.child(By.tagName("ul"));
 
-        list.children(By.tagName("input")).where(3, new OddNumberPredicate(), new ElementOperator() {
-            @Override
-            public void doWith(final Element element) {
-                element.perform().click();
-            }
-        });
+        list.children(By.tagName("input")).where(CollectionSizes.equalTo(3), new OddNumberPredicate(),
+                new ElementOperator() {
+                    @Override
+                    public void doWith(final Element element) {
+                        element.perform().click();
+                    }
+                });
 
         content.assertThat().hasText(containsString("Checkbox 1 has been clicked"));
         content.assertThat().hasText(not(containsString("Checkbox 2 has been clicked")));

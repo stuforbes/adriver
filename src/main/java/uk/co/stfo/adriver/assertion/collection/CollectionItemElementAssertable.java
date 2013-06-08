@@ -12,6 +12,7 @@ import uk.co.stfo.adriver.assertion.element.BaseElementAssertable;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
 import uk.co.stfo.adriver.element.collection.probe.AssertOnCollectionProbe;
 import uk.co.stfo.adriver.element.collection.probe.ElementToProbeCreator;
+import uk.co.stfo.adriver.element.collection.size.CollectionSize;
 import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
@@ -29,12 +30,12 @@ public class CollectionItemElementAssertable implements BaseElementAssertable {
     private final By by;
     private final ElementFactory elementFactory;
     private final ResultStrategy resultStrategy;
-    private final int expectedCollectionSize;
+    private final CollectionSize collectionSize;
 
 
-    public CollectionItemElementAssertable(final int expectedCollectionSize, final By by, final Traversable parent,
+    public CollectionItemElementAssertable(final CollectionSize collectionSize, final By by, final Traversable parent,
             final Poller poller, final ElementFactory elementFactory, final ResultStrategy resultStrategy) {
-        this.expectedCollectionSize = expectedCollectionSize;
+        this.collectionSize = collectionSize;
         this.by = by;
         this.parent = parent;
         this.poller = poller;
@@ -68,7 +69,7 @@ public class CollectionItemElementAssertable implements BaseElementAssertable {
 
 
     private void doPollWith(final ElementToProbeCreator probeCreator) {
-        poller.doProbe(new AssertOnCollectionProbe(expectedCollectionSize, by, parent, probeCreator, elementFactory,
+        poller.doProbe(new AssertOnCollectionProbe(collectionSize, by, parent, probeCreator, elementFactory,
                 resultStrategy));
     }
 }

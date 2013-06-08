@@ -18,6 +18,7 @@ import org.openqa.selenium.WebElement;
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.ElementFactory;
 import uk.co.stfo.adriver.element.collection.ElementOperator;
+import uk.co.stfo.adriver.element.collection.size.CollectionSizes;
 import uk.co.stfo.adriver.probe.Probe;
 import uk.co.stfo.adriver.webdriver.Traversable;
 
@@ -43,7 +44,7 @@ public class EachChildProbeTest {
         this.elementFactory = context.mock(ElementFactory.class);
         this.operator = context.mock(ElementOperator.class);
 
-        this.probe = new EachChildProbe(by, parent, EXPECTED_COUNT, operator, elementFactory);
+        this.probe = new EachChildProbe(by, parent, CollectionSizes.equalTo(EXPECTED_COUNT), operator, elementFactory);
     }
 
 

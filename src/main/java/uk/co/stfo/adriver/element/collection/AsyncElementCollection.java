@@ -11,6 +11,7 @@ import uk.co.stfo.adriver.assertion.collection.CollectionAssertable;
 import uk.co.stfo.adriver.element.collection.probe.EachChildProbe;
 import uk.co.stfo.adriver.element.collection.probe.NthChildProbe;
 import uk.co.stfo.adriver.element.collection.probe.WhereChildProbe;
+import uk.co.stfo.adriver.element.collection.size.CollectionSize;
 import uk.co.stfo.adriver.poll.Poller;
 import uk.co.stfo.adriver.probe.Probe;
 import uk.co.stfo.adriver.webdriver.Traversable;
@@ -45,10 +46,10 @@ public class AsyncElementCollection implements ElementCollection {
 
 
     @Override
-    public void each(final int expectedCount, final ElementOperator operator) {
+    public void each(final CollectionSize collectionSize, final ElementOperator operator) {
         LOG.debug("Handling each of the expected {} children of parent {} with criteria {}", new Object[] {
-                expectedCount, parent, by });
-        doProbe(new EachChildProbe(by, parent, expectedCount, operator, elementFactory));
+                collectionSize, parent, by });
+        doProbe(new EachChildProbe(by, parent, collectionSize, operator, elementFactory));
     }
 
 
@@ -60,10 +61,11 @@ public class AsyncElementCollection implements ElementCollection {
 
 
     @Override
-    public void where(final int expectedCount, final Predicate<WebElement> predicate, final ElementOperator operator) {
+    public void where(final CollectionSize collectionSize, final Predicate<WebElement> predicate,
+            final ElementOperator operator) {
         LOG.debug("Handling {} children of parent {} with criteria {} where predicate {} is applicable", new Object[] {
-                expectedCount, parent, by, predicate });
-        doProbe(new WhereChildProbe(by, parent, expectedCount, predicate, operator, elementFactory));
+                collectionSize, parent, by, predicate });
+        doProbe(new WhereChildProbe(by, parent, collectionSize, predicate, operator, elementFactory));
     }
 
 
