@@ -114,14 +114,32 @@ public abstract class AbstractElementCollectionProbe implements Probe {
             if (isValidWebElement(i, elements.get(i))) {
                 LOG.debug("WebElement {} at position {} is applicable. About to do element operation", elements.get(i),
                         i);
-                final Element element = elementFactory.createForPositionInList(i, parent);
-                doWithElement(element, operator);
+                final Element element = createElementForPosition(i);
+                doWithElement(element);
             }
         }
     }
 
 
-    protected void doWithElement(final Element element, final ElementOperator operator) {
+    /**
+     * Create an {@link Element} representing the ith item in the collection
+     * 
+     * @param i
+     *            the position in the list
+     * @return an {@link Element}, representing the element in the collection
+     */
+    protected Element createElementForPosition(final int i) {
+        return elementFactory.createForPositionInList(i, parent);
+    }
+
+
+    /**
+     * Use the {@link ElementOperator} to operate on the {@link Element}
+     * 
+     * @param element
+     *            the {@link Element} to be operated on
+     */
+    protected void doWithElement(final Element element) {
         operator.doWith(element);
     }
 

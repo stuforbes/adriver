@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.jmock.Expectations;
+import org.jmock.Sequence;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Before;
 import org.junit.Rule;
@@ -113,6 +114,8 @@ public class AsyncElementCollectionTest {
         final Element element2 = context.mock(Element.class, "element2");
         final Element element3 = context.mock(Element.class, "element3");
 
+        final Sequence eachElementSequence = context.sequence("eachElementSequence");
+
         context.checking(new Expectations() {
             {
                 oneOf(parent).locateAllWith(criteria);
@@ -128,12 +131,113 @@ public class AsyncElementCollectionTest {
                 will(returnValue(element3));
 
                 oneOf(operator).doWith(element1);
+                inSequence(eachElementSequence);
+
                 oneOf(operator).doWith(element2);
+                inSequence(eachElementSequence);
+
                 oneOf(operator).doWith(element3);
+                inSequence(eachElementSequence);
             }
         });
 
         elementCollection.each(CollectionSizes.equalTo(3), operator);
+    }
+
+
+    @Test
+    public void countdownThrowsExceptionIfNotEnoughChildrenLocated() {
+
+        final WebElement child1 = context.mock(WebElement.class, "child1");
+        final WebElement child2 = context.mock(WebElement.class, "child2");
+        final List<WebElement> children = Arrays.asList(child1, child2);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(parent).locateAllWith(criteria);
+                will(returnValue(children));
+            }
+        });
+
+        try {
+            elementCollection.countdown(CollectionSizes.equalTo(3), context.mock(ElementOperator.class));
+            fail("Expected an " + AssertionError.class.getName() + " to be thrown");
+        } catch (final AssertionError ex) {
+            assertThat(
+                    ex.getMessage(),
+                    containsString("Expected 3 elements under element parent with criteria by id=children, but instead found 2"));
+        }
+    }
+
+
+    @Test
+    public void countdownThrowsExceptionIfTooManyChildrenLocated() {
+
+        final WebElement child1 = context.mock(WebElement.class, "child1");
+        final WebElement child2 = context.mock(WebElement.class, "child2");
+        final WebElement child3 = context.mock(WebElement.class, "child3");
+        final List<WebElement> children = Arrays.asList(child1, child2, child3);
+
+        context.checking(new Expectations() {
+            {
+                oneOf(parent).locateAllWith(criteria);
+                will(returnValue(children));
+            }
+        });
+
+        try {
+            elementCollection.countdown(CollectionSizes.equalTo(2), context.mock(ElementOperator.class));
+            fail("Expected an " + AssertionError.class.getName() + " to be thrown");
+        } catch (final AssertionError ex) {
+            assertThat(
+                    ex.getMessage(),
+                    containsString("Expected 2 elements under element parent with criteria by id=children, but instead found 3"));
+        }
+    }
+
+
+    @Test
+    public void countdownElementInCollectionIsOperatedOnInTheCorrectOrder() {
+
+        final ElementOperator operator = context.mock(ElementOperator.class);
+
+        final WebElement webElement1 = context.mock(WebElement.class, "webElement1");
+        final WebElement webElement2 = context.mock(WebElement.class, "webElement2");
+        final WebElement webElement3 = context.mock(WebElement.class, "webElement3");
+        final List<WebElement> children = Arrays.asList(webElement1, webElement2, webElement3);
+
+        final Element element1 = context.mock(Element.class, "element1");
+        final Element element2 = context.mock(Element.class, "element2");
+        final Element element3 = context.mock(Element.class, "element3");
+
+        final Sequence eachElementSequence = context.sequence("eachElementSequence");
+
+        context.checking(new Expectations() {
+            {
+                oneOf(parent).locateAllWith(criteria);
+                will(returnValue(children));
+
+                oneOf(elementFactory).createForPositionInList(0, parent);
+                will(returnValue(element1));
+
+                oneOf(elementFactory).createForPositionInList(1, parent);
+                will(returnValue(element2));
+
+                oneOf(elementFactory).createForPositionInList(2, parent);
+                will(returnValue(element3));
+
+                oneOf(operator).doWith(element3);
+                inSequence(eachElementSequence);
+
+                oneOf(operator).doWith(element2);
+                inSequence(eachElementSequence);
+
+                oneOf(operator).doWith(element1);
+                inSequence(eachElementSequence);
+            }
+        });
+
+        elementCollection.countdown(CollectionSizes.equalTo(3), operator);
     }
 
 

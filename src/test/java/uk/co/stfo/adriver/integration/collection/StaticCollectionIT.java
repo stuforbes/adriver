@@ -1,5 +1,6 @@
 package uk.co.stfo.adriver.integration.collection;
 
+
 public class StaticCollectionIT extends AbstractCollectionIT {
 
     @Override

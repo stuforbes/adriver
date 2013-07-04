@@ -31,6 +31,20 @@ public interface ElementCollection {
 
 
     /**
+     * Perform the {@link ElementOperator} on each element of the collection,
+     * starting from the last element, working down the the first, once the
+     * expected count has been reached
+     * 
+     * @param collectionSize
+     *            The strategy for determining if a satisfactory number of
+     *            elements are available
+     * @param operator
+     *            The operation to be performed on each {@link Element}
+     */
+    void countdown(CollectionSize collectionSize, ElementOperator operator);
+
+
+    /**
      * Perform the {@link ElementOperator} on the nth element of the collection,
      * once there are at least n items available
      * 

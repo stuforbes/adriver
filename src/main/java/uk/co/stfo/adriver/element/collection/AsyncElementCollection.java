@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.co.stfo.adriver.assertion.collection.AsyncCollectionAssertable;
 import uk.co.stfo.adriver.assertion.collection.CollectionAssertable;
+import uk.co.stfo.adriver.element.collection.probe.CountdownChildProbe;
 import uk.co.stfo.adriver.element.collection.probe.EachChildProbe;
 import uk.co.stfo.adriver.element.collection.probe.NthChildProbe;
 import uk.co.stfo.adriver.element.collection.probe.WhereChildProbe;
@@ -50,6 +51,14 @@ public class AsyncElementCollection implements ElementCollection {
         LOG.debug("Handling each of the expected {} children of parent {} with criteria {}", new Object[] {
                 collectionSize, parent, by });
         doProbe(new EachChildProbe(by, parent, collectionSize, operator, elementFactory));
+    }
+
+
+    @Override
+    public void countdown(final CollectionSize collectionSize, final ElementOperator operator) {
+        LOG.debug("Counting down each of the expected {} children of parent {}, with criteria {}", new Object[] {
+                collectionSize, parent, by });
+        doProbe(new CountdownChildProbe(by, parent, collectionSize, operator, elementFactory));
     }
 
 

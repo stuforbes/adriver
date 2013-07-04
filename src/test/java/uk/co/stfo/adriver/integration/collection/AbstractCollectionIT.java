@@ -1,8 +1,10 @@
 package uk.co.stfo.adriver.integration.collection;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.startsWith;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -35,6 +37,27 @@ public abstract class AbstractCollectionIT extends AbstractDriverIT {
         content.assertThat().hasText(containsString("Checkbox 1 has been clicked"));
         content.assertThat().hasText(containsString("Checkbox 2 has been clicked"));
         content.assertThat().hasText(containsString("Checkbox 3 has been clicked"));
+    }
+
+
+    @Test
+    public void countdownClicksEachCheckboxInCollectionInCorrectOrder() {
+
+        final Element content = driver.child(By.id("content"));
+        content.assertThat().hasText(isEmptyString());
+
+        final Element list = driver.child(By.tagName("ul"));
+
+        list.children(By.tagName("input")).countdown(CollectionSizes.equalTo(3), new ElementOperator() {
+            @Override
+            public void doWith(final Element element) {
+                element.perform().click();
+            }
+        });
+
+        content.assertThat().hasText(startsWith("Checkbox 3 has been clicked"));
+        content.assertThat().hasText(containsString("Checkbox 2 has been clicked"));
+        content.assertThat().hasText(endsWith("Checkbox 1 has been clicked"));
     }
 
 
