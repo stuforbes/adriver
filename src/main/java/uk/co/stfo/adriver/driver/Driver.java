@@ -1,11 +1,9 @@
 package uk.co.stfo.adriver.driver;
 
-import java.io.IOException;
-import java.io.Writer;
-
 import org.openqa.selenium.WebDriver;
 
 import uk.co.stfo.adriver.assertion.driver.DriverAssertable;
+import uk.co.stfo.adriver.driver.output.DriverOutput;
 import uk.co.stfo.adriver.element.ElementContainer;
 
 /**
@@ -63,10 +61,11 @@ public interface Driver extends ElementContainer {
 
 
     /**
-     * Print the page source to the specified {@link Writer}
+     * Output various details of the Driver. Useful for debugging errors or
+     * failed tests.
      * 
-     * @param writer
-     *            Where to print the page source
+     * @return {@link DriverOutput} that can output various types of data.
      */
-    void dumpSourceTo(Writer writer) throws IOException;
+    DriverOutput dump();
+
 }

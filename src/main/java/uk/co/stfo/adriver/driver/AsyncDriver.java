@@ -1,7 +1,5 @@
 package uk.co.stfo.adriver.driver;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -16,6 +14,8 @@ import uk.co.stfo.adriver.action.ElementActions;
 import uk.co.stfo.adriver.action.ElementActionsFactory;
 import uk.co.stfo.adriver.assertion.driver.AsyncDriverAssertable;
 import uk.co.stfo.adriver.assertion.driver.DriverAssertable;
+import uk.co.stfo.adriver.driver.output.DriverOutput;
+import uk.co.stfo.adriver.driver.output.WebDriverOutput;
 import uk.co.stfo.adriver.element.AsyncElement;
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.AsyncElementCollection;
@@ -131,13 +131,8 @@ public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
 
 
     @Override
-    public void dumpSourceTo(final Writer writer) throws IOException {
-        try {
-            writer.write(webDriver.getPageSource());
-        } finally {
-            writer.flush();
-            writer.close();
-        }
+    public DriverOutput dump() {
+        return new WebDriverOutput(webDriver);
     }
 
 
