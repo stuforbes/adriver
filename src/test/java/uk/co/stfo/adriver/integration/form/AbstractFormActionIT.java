@@ -85,14 +85,4 @@ public abstract class AbstractFormActionIT extends AbstractDriverIT {
         top.child(By.id("sel")).perform().select("Option 2");
         top.child(By.id("content")).assertThat().hasText(is("Select box changed to option-2"));
     }
-
-
-    @Test
-    public void canSubmitForms() {
-        final Element top = driver.child(By.id("top"));
-        top.child(By.tagName("form")).child(By.name("some-text")).perform().type("something");
-        top.child(By.tagName("form")).child(By.name("some-text")).perform().submit();
-
-        driver.assertThat().currentUrl(containsString("some-text=something"));
-    }
 }
