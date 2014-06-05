@@ -88,6 +88,12 @@ public class AsyncDriver implements Driver, Traversable, ElementActionsFactory {
 
 
     @Override
+    public void perform(final DriverAction action) {
+        LOG.debug("Performing custom action on webdriver");
+        action.doActionOn(webDriver);
+    }
+
+    @Override
     public ElementActions createActionsFor(final Element element) {
         return new AsyncElementActions(poller, element, element, new Actions(webDriver));
     }

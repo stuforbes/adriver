@@ -59,6 +59,11 @@ public interface Driver extends ElementContainer {
      */
     void quit();
 
+    /**
+     * Perform a custom action on the {@link org.openqa.selenium.WebDriver}
+     * @param action The custom action to be performed
+     */
+    void perform(DriverAction action);
 
     /**
      * Output various details of the Driver. Useful for debugging errors or

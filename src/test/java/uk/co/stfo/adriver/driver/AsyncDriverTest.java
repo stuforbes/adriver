@@ -1,10 +1,5 @@
 package uk.co.stfo.adriver.driver;
 
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertThat;
-
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Before;
@@ -13,19 +8,20 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import uk.co.stfo.adriver.element.AsyncElement;
 import uk.co.stfo.adriver.element.Element;
 import uk.co.stfo.adriver.element.collection.AsyncElementCollection;
 import uk.co.stfo.adriver.element.collection.ElementCollection;
 import uk.co.stfo.adriver.poll.Poller;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+
 public class AsyncDriverTest {
 
     @Rule
     public JUnitRuleMockery context = new JUnitRuleMockery();
 
-    private Poller poller;
     private WebDriver webDriver;
 
     private AsyncDriver driver;
@@ -33,7 +29,7 @@ public class AsyncDriverTest {
 
     @Before
     public void initialise() {
-        this.poller = context.mock(Poller.class);
+        final Poller poller = context.mock(Poller.class);
         this.webDriver = context.mock(WebDriver.class);
 
         this.driver = new AsyncDriver(poller, webDriver);
@@ -126,5 +122,16 @@ public class AsyncDriverTest {
         });
 
         assertThat(driver.locateWith(by), is(nullValue()));
+    }
+
+    @Test
+    public void canPerformAnActionOnTheWebDriver(){
+        final DriverAction action = context.mock(DriverAction.class);
+
+        context.checking(new Expectations(){{
+            oneOf(action).doActionOn(webDriver);
+        }});
+
+        driver.perform(action);
     }
 }
